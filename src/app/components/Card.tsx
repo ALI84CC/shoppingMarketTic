@@ -1,42 +1,50 @@
+import Button from './Button';
+
 const Card = () => {
   return (
-    <div className="w-60 rounded-lg bg-white p-4 shadow-md">
-      <div>
-        <img
-          src="./assets/produtos/ball.png"
-          width={50}
-          height={50}
-          alt="Bola"
-          className="h-auto w-full"
-        />
-      </div>
-      <div>
-        <h3 className="mb-2 text-lg font-bold">Bola</h3>
-      </div>
-      <div>
-        <span className="text-gray-600">
-          bola colorida para muitas diversões
-        </span>
+    <>
+      <div className="w-60 rounded-lg bg-white p-4 shadow-md">
+        <div>
+          <img
+            src="./assets/produtos/ball.png"
+            width={20}
+            height={20}
+            alt="Bola"
+            className="h-auto w-full"
+          />
+        </div>
+        <div className="mb-2 flex items-center justify-center">
+          <h3>Bola</h3>
+        </div>
+        <div className="flex items-center justify-center text-gray-600">
+          <span>bola colorida para muitas diversões</span>
+        </div>
+        <Button className="mt-4" variant="primary">
+          Adicionar
+        </Button>
       </div>
 
       <div>
-        <img
-          src="./assets/produtos/tenis.png"
-          width={50}
-          height={50}
-          alt="Tênis"
-          className="h-auto w-full"
-        />
+        <div className="w-60 rounded-lg bg-white p-4 shadow-md">
+          <img
+            src="./assets/produtos/tenis.png"
+            width={20}
+            height={20}
+            alt="Tênis"
+            className="h-auto w-fit"
+          />
+        </div>
+        <div className="mb-2 flex items-center justify-center">
+          <h3>Tênis</h3>
+        </div>
+        <div className="flex items-center justify-center text-gray-600">
+          <span>tênis colorido para diversas ocasiões</span>
+        </div>
+        <Button className="mt-4" variant="primary">
+          Adicionar
+        </Button>
       </div>
-      <div>
-        <h3 className="mb-2 text-lg font-bold">Tênis</h3>
-      </div>
-      <div>
-        <span className="text-gray-600">
-          tênis colorido para diversas ocasiões
-        </span>
-      </div>
-    </div>
+    </>
   );
 };
 
