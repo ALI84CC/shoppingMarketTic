@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "nome": "backpack",
+    "descricao": "Mochila resistente para uso diário e viagens.",
+    "preco": 189.9,
+    "quantidade": 15,
+    "categoria": "Acessórios",
+    "imagem": "backpack.png"
+  },
+  {
+    "id": 2,
+    "nome": "ball",
+    "descricao": "Bola esportiva multiuso oficial.",
+    "preco": 79.9,
+    "quantidade": 30,
+    "categoria": "Esportes",
+    "imagem": "ball.png"
+  },
+  {
+    "id": 3,
+    "nome": "bike",
+    "descricao": "Bicicleta urbana com marchas e quadro de alumínio.",
+    "preco": 1250.0,
+    "quantidade": 5,
+    "categoria": "Esportes",
+    "imagem": "bike.png"
+  },
+  {
+    "id": 4,
+    "nome": "camisa-havaiana",
+    "descricao": "Camisa estampada casual de manga curta.",
+    "preco": 89.9,
+    "quantidade": 22,
+    "categoria": "Vestuário",
+    "imagem": "camisa-havaiana.png"
+  },
+  {
+    "id": 5,
+    "nome": "lipstick",
+    "descricao": "Batom hidratante com acabamento matte.",
+    "preco": 34.9,
+    "quantidade": 50,
+    "categoria": "Beleza",
+    "imagem": "lipstick.png"
+  },
+  {
+    "id": 6,
+    "nome": "liquidificador",
+    "descricao": "Liquidificador potente com jarra de 2 litros.",
+    "preco": 159.9,
+    "quantidade": 12,
+    "categoria": "Eletrodomésticos",
+    "imagem": "liquidificador.png"
+  },
+  {
+    "id": 7,
+    "nome": "luvas-de-boxe",
+    "descricao": "Par de luvas de boxe profissionais com ajuste de pulso.",
+    "preco": 120.0,
+    "quantidade": 8,
+    "categoria": "Esportes",
+    "imagem": "luvas-de-boxe.png"
+  },
+  {
+    "id": 8,
+    "nome": "oculos-de-sol",
+    "descricao": "Óculos de sol moderno com proteção UV400.",
+    "preco": 99.9,
+    "quantidade": 18,
+    "categoria": "Acessórios",
+    "imagem": "oculos-de-sol.png"
+  },
+  {
+    "id": 9,
+    "nome": "roda-de-carro",
+    "descricao": "Roda de liga leve de alta durabilidade.",
+    "preco": 450.0,
+    "quantidade": 16,
+    "categoria": "Automotivo",
+    "imagem": "roda-de-carro.png"
+  },
+  {
+    "id": 10,
+    "nome": "tenis",
+    "descricao": "Tênis esportivo confortável para corrida e caminhada.",
+    "preco": 249.9,
+    "quantidade": 25,
+    "categoria": "Calçados",
+    "imagem": "tenis.png"
+  }
+]
