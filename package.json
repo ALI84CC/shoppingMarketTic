@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "json-server --watch src/json-server/db.json"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/react-query": "^5.101.4",
     "eslint-plugin-tailwindcss": "^4.2.0",
     "json-server": "^1.0.0-beta.15",
     "prettier-plugin-tailwindcss": "^0.8.1",
