@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
 import Card from '../components/Card';
-import findAll from '../services/product.service';
 import type { ProductProps } from '../interfaces/Product';
 import { useQuery } from '@tanstack/react-query';
+import ProductService from '../services/product.service';
 
 const Home = () => {
-  // useEffect(() => {
-  //   findAll().then((res) => console.log(res));
-  // }, []);
-
   const {
     data: products,
     isLoading,
@@ -16,17 +11,19 @@ const Home = () => {
   } = useQuery<ProductProps[], Error>({
     queryKey: ['query-products'],
     queryFn: async () => {
-      const response = await findAll();
+      const response = await ProductService.findAll();
       return response;
     },
   });
 
   return (
-    <>
-      {products?.map((product: ProductProps) => (
-        <Card key={product.id} product={product} />
-      ))}
-    </>
+    <div className="mt-32 flex h-4/5 w-full flex-col items-center justify-center gap-16">
+      <div className="grid h-5/4 w-11/12 grid-cols-4 gap-4 overflow-x-auto">
+        {products?.map((product: ProductProps) => (
+          <Card key={product.id} item={product} />
+        ))}
+      </div>
+    </div>
   );
 };
 export default Home;

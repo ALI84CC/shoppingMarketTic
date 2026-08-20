@@ -7,3 +7,7 @@ export interface ProductProps {
   categoria: string;
   imagem: string;
 }
+
+export interface Product {
+  item: ProductProps;
+}
