@@ -8,7 +8,7 @@ interface CardProps {
 const Card = ({ product }: CardProps) => {
   return (
     <>
-      <div className="w-60 rounded-lg bg-white p-4 shadow-md">
+      <div className="w-55 rounded-lg bg-white p-4 shadow-md">
         <div>
           <img
             src={product.imagem}
