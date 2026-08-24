@@ -2,21 +2,23 @@ import { tv } from 'tailwind-variants';
 import { type ChangeEvent } from 'react';
 
 interface InputProps {
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  // adicione outras props aqui se houver, como placeholder, value, etc.
+   onChange: (...args: any[]) => any;
+    placeholder?: string;
 }
 
 const inputVariants = tv({
-  base: 'w-full rounded bg-gray-200 p-2 placeholder:text-gray-500 focus:outline-none',
+  base: 'w-full rounded-md bg-gray-100 border border-gray-200 px-4 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-400 focus:bg-white focus:outline-none transition-all',
 });
 
-const Input = ({ onChange, ...props }: InputProps) => {
+const Input = ({ onChange, placeholder = 'Search...', ...props }: InputProps) => {
   return (
     <input
       type="text"
-      onChange={onChange} // O input nativo do HTML sabe o que fazer com isso
-      placeholder="Search..."
-      className={inputVariants.base}
+       id="search-products" // Adicionado para acessibilidade
+      name="search-products" // Adicionado para o navegador
+      onChange={onChange}
+      placeholder={placeholder}
+      className={inputVariants()}
       {...props}
     />
   );

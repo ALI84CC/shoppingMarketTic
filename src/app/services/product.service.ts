@@ -7,7 +7,7 @@ const findAll = async () => {
 };
 
 const searchName = async (name: string) => {
-  const response = await http.get<ProductProps[]>(`product?name=${name}`);
+  const response = await http.get<ProductProps[]>(`products?name=${name}`);
   return response.data;
 };
 
