@@ -8,14 +8,14 @@ interface CardProps {
 const Card = ({ item }: Product) => {
   return (
     <>
-      <div className="flex h-96 w-64 flex-col justify-center rounded-lg bg-white p-4 shadow-md">
-        <div className="flex justify-center">
+      <div className="flex h-102 w-90 flex-col justify-center rounded-lg bg-white p-4 shadow-md">
+        <div className="flex justify-center ">
           <img
             src={item.imagem}
             width={15}
             height={15}
             alt={item.nome}
-            className="h-40 rounded-t-lg object-cover"
+            className="h-30 w-30 rounded-t-lg object-cover"
           />
         </div>
         <div className="flex flex-col gap-2 p-4">

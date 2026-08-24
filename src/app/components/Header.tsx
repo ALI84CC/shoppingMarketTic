@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import ProductService from '../services/product.service';
 import type { ProductProps } from '../interfaces/Product';
 import { useState, type ChangeEvent } from 'react';
-import _, { debounce } from 'lodash';
+import _, { debounce } from 'loadsh';
 
 const Header = () => {
   const [productName, setProductName] = useState('');

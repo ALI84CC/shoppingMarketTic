@@ -8,13 +8,15 @@ const Home = () => {
     data: products,
     isLoading,
     error,
-  } = useQuery<ProductProps[], Error>({
+  } = useQuery({
     queryKey: ['query-products'],
-    queryFn: async () => {
-      const response = await ProductService.findAll();
-      return response;
-    },
+    queryFn: () => ProductService.findAll(),
   });
+
+
+  if (isLoading) return '..loading'
+
+   if (error) return 'An error has occurred: ' + (error as Error).message
 
   return (
     <div className="mt-32 flex h-4/5 w-full flex-col items-center justify-center gap-16">
@@ -25,5 +27,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+
+  };
 export default Home;
