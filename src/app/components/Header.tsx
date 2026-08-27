@@ -7,65 +7,85 @@ import { debounce } from 'lodash';
 import List from './List';
 
 const Header = () => {
-  const [productName, setProductName] = useState('');
+  // Estado local imediato para o valor do input (evita travamentos)
+  const [inputValue, setInputValue] = useState('');
+  // Estado que realmente vai disparar a busca no TanStack Query
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const {
-    data: productByName,
-    isLoading,
-    error,
-  } = useQuery<ProductProps[], Error>({
-    queryKey: ['query-products-by-name', productName],
-    queryFn: () => ProductService.searchName(productName),
-    enabled: !!productName, // Converte a string preenchida para true, e vazia para false
+  const { data: productByName, isLoading } = useQuery<ProductProps[], Error>({
+    queryKey: ['query-products-by-name', searchTerm],
+    queryFn: () => ProductService.searchName(searchTerm),
+    enabled: !!searchTerm.trim(), // Só busca se houver texto válidofalse
   });
+
+  // Função com debounce que atualiza o termo da busca após 500ms
+  const debouncedSearch = useMemo(
+    () => debounce((value: string) => setSearchTerm(value), 500),
+    [],
+  );
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setProductName(value);
+    setInputValue(value); // Atualiza a tela instantaneamente
+    debouncedSearch(value); // Dispara a busca atrasada
   };
 
-   const debounceHandleOnChange = useMemo(() => {
-    return debounce(handleInput, 500);
-  }, []);
-
   return (
-    <header className="fixed top-0 right-0 z-50 h-20  flex w-full items-center justify-center bg-white py-4 shadow-md  border-b border-gray-500">
+    <header className="fixed top-0 right-0 z-50 flex h-20 w-full items-center justify-center border-b border-gray-500 bg-white py-4 shadow-md">
       <div className="mx-auto flex w-11/12 items-center justify-between gap-8">
-        <div className='shrink-0 w-32'>
+        <div className="w-32 shrink-0">
           <a href="/">
             <img
               src="./assets/shopping-market-tic.png"
               alt="Logo"
-              className="w-16 h-auto object-contain"
+              className="h-auto w-16 object-contain"
             />
           </a>
         </div>
 
-        <div className="relative flex-1 max-w-2xl flex items-center" >
-          <Input onChange={debounceHandleOnChange as any} />
+        <div className="relative flex max-w-2xl flex-1 items-center">
+          <Input value={inputValue} onChange={handleInput} />
 
-          {productName.trim() !== '' && productByName && (
+          {searchTerm.trim() !== '' &&
+            productByName &&
+            productByName.length > 0 && (
+              <ul className="absolute top-full right-0 left-0 z-50 mt-2 max-h-64 overflow-y-auto rounded-md border border-gray-200 bg-white p-2 shadow-xl">
+                {productByName?.map((product: ProductProps) => (
+                  <List
+                    key={product.id}
+                    className="flex cursor-pointer items-center justify-between p-2 hover:bg-gray-50"
+                  >
+                    <span className="font-medium text-gray-800">
+                      {product.nome}
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={product.imagem}
+                        className="h-10 w-10 rounded object-cover"
+                        alt={product.nome}
+                      />
+                      <span className="text-sm font-semibold text-green-600">
+                        R$ {product.preco}
+                      </span>
+                    </div>
+                  </List>
+                ))}
+              </ul>
+            )}
 
-          <ul className="absolute top-full left-0 right-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-md bg-white p-2 shadow-xl border border-gray-200">
-            {productByName.map((product: ProductProps) => (
-              <List key={product.id} className="flex items-center justify-between p-2 hover:bg-gray-50 cursor-pointer">
-                <span className="font-medium text-gray-800">{product.nome}</span>
-                <div className="flex items-center gap-3">
-                  <img src={product.imagem} className="h-10 w-10 rounded object-cover" alt={product.nome} />
-                  <span className="text-sm font-semibold text-green-600">R$ {product.preco}</span>
-                </div>
-              </List>
-            ))}
-          </ul>
+          {/* Feedback visual opcional de carregamento */}
+          {isLoading && (
+            <span className="absolute right-3 text-xs text-gray-400">
+              Buscando...
+            </span>
           )}
         </div>
 
         <div className="shrink-0">
-          <button className="rounded-md bg-blue-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-600 transition-colors cursor-pointer">
+          <button className="cursor-pointer rounded-md bg-blue-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-600">
             Carrinho
           </button>
         </div>
-
       </div>
     </header>
   );

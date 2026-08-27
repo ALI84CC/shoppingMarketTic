@@ -1,21 +1,19 @@
 import Button from './Button';
-import type { Product, ProductProps } from '../interfaces/Product.ts';
+import type { ProductProps } from '../interfaces/Product.ts';
 
 interface CardProps {
-  product: ProductProps;
+  item: ProductProps;
 }
 
-const Card = ({ item }: Product) => {
+const Card = ({ item }: CardProps) => {
   return (
     <>
       <div className="flex h-102 w-90 flex-col justify-center rounded-lg bg-white p-4 shadow-md">
-        <div className="flex justify-center ">
+        <div className="flex justify-center">
           <img
             src={item.imagem}
-            width={15}
-            height={15}
             alt={item.nome}
-            className="h-30 w-30 rounded-t-lg object-cover"
+            className="h-32 w-32 rounded-t-lg object-contain"
           />
         </div>
         <div className="flex flex-col gap-2 p-4">
@@ -23,15 +21,17 @@ const Card = ({ item }: Product) => {
             <span className="text-center font-bold capitalize">
               {item.nome}
             </span>
+            <div className="flex items-center justify-center text-gray-600">
+              <span>{item.descricao}</span>
+            </div>
           </div>
-          <div className="flex items-center justify-center text-gray-600">
-            <span>{item.descricao}</span>
-          </div>
+
           <div className="flex items-center justify-center">
-            <span>R${item.preco}</span>
+            <span>R$ {item.preco}</span>
           </div>
         </div>
-        <Button className="mt-4" variant="primary">
+
+        <Button className="mt-2 w-full" variant="primary">
           Adicionar
         </Button>
       </div>

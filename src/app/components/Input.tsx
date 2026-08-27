@@ -1,10 +1,7 @@
 import { tv } from 'tailwind-variants';
-import { type ChangeEvent } from 'react';
+import type { ComponentProps } from 'react';
 
-interface InputProps {
-   onChange: (...args: any[]) => any;
-    placeholder?: string;
-}
+type InputProps = ComponentProps<"input">;
 
 const inputVariants = tv({
   base: 'w-full rounded-md bg-gray-100 border border-gray-200 px-4 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-400 focus:bg-white focus:outline-none transition-all',
