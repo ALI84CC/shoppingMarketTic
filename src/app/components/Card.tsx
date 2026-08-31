@@ -8,7 +8,7 @@ interface CardProps {
 const Card = ({ item }: CardProps) => {
   return (
     <>
-      <div className="flex h-102 w-90 flex-col justify-center rounded-lg bg-white p-4 shadow-md">
+      <div className="flex h-[300px] w-full max-w-[220px] flex-col rounded-lg bg-white p-4 py-4 shadow-md transition-shadow hover:shadow-lg">
         <div className="flex justify-center">
           <img
             src={item.imagem}
@@ -17,11 +17,11 @@ const Card = ({ item }: CardProps) => {
           />
         </div>
         <div className="flex flex-col gap-2 p-4">
-          <div className="mb-2 flex items-center justify-center">
+          <div className="mb-2 flex flex-col items-center justify-center gap-2 align-middle">
             <span className="text-center font-bold capitalize">
               {item.nome}
             </span>
-            <div className="flex items-center justify-center text-gray-600">
+            <div className="line-clamp-2 flex items-center justify-center text-gray-600">
               <span>{item.descricao}</span>
             </div>
           </div>
@@ -31,7 +31,7 @@ const Card = ({ item }: CardProps) => {
           </div>
         </div>
 
-        <Button className="mt-2 w-full" variant="primary">
+        <Button className="mt-auto w-full" variant="primary">
           Adicionar
         </Button>
       </div>

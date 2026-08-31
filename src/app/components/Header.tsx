@@ -5,6 +5,7 @@ import type { ProductProps } from '../interfaces/Product';
 import { useMemo, useState, type ChangeEvent } from 'react';
 import { debounce } from 'lodash';
 import List from './List';
+import Container from './Container';
 
 const Header = () => {
   // Estado local imediato para o valor do input (evita travamentos)
@@ -32,6 +33,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 right-0 z-50 flex h-20 w-full items-center justify-center border-b border-gray-500 bg-white py-4 shadow-md">
+      <Container>
       <div className="mx-auto flex w-11/12 items-center justify-between gap-8">
         <div className="w-32 shrink-0">
           <a href="/">
@@ -41,7 +43,7 @@ const Header = () => {
               className="h-auto w-16 object-contain"
             />
           </a>
-        </div>
+      </div>
 
         <div className="relative flex max-w-2xl flex-1 items-center">
           <Input value={inputValue} onChange={handleInput} />
@@ -87,6 +89,8 @@ const Header = () => {
           </button>
         </div>
       </div>
+         
+      </Container>
     </header>
   );
 };

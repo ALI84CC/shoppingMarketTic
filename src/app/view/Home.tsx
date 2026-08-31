@@ -6,6 +6,7 @@ import { useState } from 'react';
 import List from '../components/List';
 import { twMerge } from 'tailwind-merge';
 import { tv } from 'tailwind-variants';
+import Container from '../components/Container';
 
 const menulistVariants = tv({
   variants: {
@@ -68,39 +69,46 @@ const Home = () => {
   const menuListClasses = twMerge(
     menulistVariants(),
     isOpenMenu
-      ? 'flex items-center flex-col absolute top-60 bg-white rounded-md p-4 shadow-black w-44'
+      ? 'flex items-center flex-col absolute top-15 bg-white border rounded-md p-4 shadow-black w-44'
       : 'hidden',
   );
 
   return (
-    <main className="mt-28 mb-10 flex w-full justify-center">
-      <div className="w-4/5 flex-col items-end">
-        <button className="w-24" onClick={() => handleFilterButton}>
-          Filtro
-        </button>
-        <ul className={menuListClasses}>
-          {listOptionsFilter.map((item) => {
-            return (
-              <List
-                key={item.name}
-                className={item.class}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFilter(item.value);
-                }}
-              >
-                {item.name}
-              </List>
-            );
-          })}
-        </ul>
-      </div>
-      {/* Grid Responsiva: 1 coluna no celular, 2 em tablets, 4 em telas grandes */}
-      <div className="grid w-11/12 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products?.map((product: ProductProps) => (
-          <Card key={product.id} item={product} />
-        ))}
-      </div>
+    <main className="mb-10 flex w-full flex-col items-center gap-6 px-4 pt-24">
+      <Container>
+        <div className="relative flex w-11/12 max-w-7xl flex-col items-end pb-4">
+          <button
+            className="text-md cursor-pointer rounded-md bg-blue-500 px-8 py-2.5 font-medium text-white shadow-sm transition-colors hover:bg-blue-600"
+            onClick={handleFilterButton}
+          >
+            Filtro
+          </button>
+          <ul className={menuListClasses}>
+            {listOptionsFilter.map((item) => {
+              return (
+                <List
+                  key={item.name}
+                  className={item.class}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFilter(item.value);
+                  }}
+                >
+                  {item.name}
+                </List>
+              );
+            })}
+          </ul>
+        </div>
+        {/* Grid Responsiva: 1 coluna no celular, 2 em tablets, 4 em telas grandes */}
+        <div className="w-11/12 max-w-7xl">
+          <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {products?.map((product: ProductProps) => (
+              <Card key={product.id} item={product} />
+            ))}
+          </div>
+        </div>
+      </Container>
     </main>
   );
 };
