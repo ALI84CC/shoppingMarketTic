@@ -1,15 +1,9 @@
 import Input from './Input';
 import { useQuery } from '@tanstack/react-query';
 import ProductService from '../services/product.service';
+import { CiShoppingCart } from 'react-icons/ci';
 import type { ProductProps } from '../interfaces/Product';
-import {
-  useMemo,
-  useState,
-  useEffect,
-  type ChangeEvent,
-  useRef,
-  type RefObject,
-} from 'react';
+import { useMemo, useState, useEffect, type ChangeEvent, useRef } from 'react';
 import { debounce } from 'lodash';
 import List from './List';
 import Container from './Container';
@@ -21,7 +15,7 @@ const Header = () => {
   // Estado que realmente vai disparar a busca no TanStack Query
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const refDropDown = useRef<HTMLUListElement | null>(null);
+  const refDropDown = useRef<HTMLUListElement>(null!);
 
   const { data: productByName, isLoading } = useQuery<ProductProps[], Error>({
     queryKey: ['query-products-by-name', searchTerm],
@@ -106,10 +100,16 @@ const Header = () => {
               </span>
             )}
           </div>
+
+          {/*    className="cursor-pointer rounded-md bg-blue-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-600" */}
+
           <div className="shrink-0">
-            <button className="cursor-pointer rounded-md bg-blue-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-600">
-              Carrinho
-            </button>
+            <a
+              href="/shopping-cart"
+              className="flex items-center justify-center"
+            >
+              <CiShoppingCart className="h-12 w-20" />
+            </a>
           </div>
         </div>
       </Container>
