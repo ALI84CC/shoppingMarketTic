@@ -8,6 +8,7 @@ import { debounce } from 'lodash';
 import List from './List';
 import Container from './Container';
 import { useOnClickOutside } from '../hooks/useClickOutside';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   // Estado local imediato para o valor do input (evita travamentos)
@@ -104,12 +105,13 @@ const Header = () => {
           {/*    className="cursor-pointer rounded-md bg-blue-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-600" */}
 
           <div className="shrink-0">
-            <a
-              href="/shopping-cart"
+            <Link
+              to="/shopping-cart"
+              relative="path"
               className="flex items-center justify-center"
             >
               <CiShoppingCart className="h-12 w-20" />
-            </a>
+            </Link>
           </div>
         </div>
       </Container>

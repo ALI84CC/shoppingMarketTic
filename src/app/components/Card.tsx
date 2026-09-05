@@ -1,11 +1,14 @@
 import Button from './Button';
 import type { ProductProps } from '../interfaces/Product.ts';
+import { useShoppingList } from '../contexts/ShoppingCart.tsx';
 
 interface CardProps {
   item: ProductProps;
 }
 
 const Card = ({ item }: CardProps) => {
+  const { addProduct } = useShoppingList();
+
   return (
     <>
       <div className="flex h-[300px] w-full max-w-[220px] flex-col rounded-lg bg-white p-4 py-4 shadow-md transition-shadow hover:shadow-lg">
@@ -31,7 +34,20 @@ const Card = ({ item }: CardProps) => {
           </div>
         </div>
 
-        <Button className="mt-auto w-full" variant="primary">
+        <Button
+          className="mt-auto w-full"
+          variant="primary"
+          onClick={() =>
+            addProduct(
+              Number(item.id),
+              item.nome,
+              Number(item.descricao),
+              item.preco,
+              Number(item.imagem),
+              1,
+            )
+          }
+        >
           Adicionar
         </Button>
       </div>
