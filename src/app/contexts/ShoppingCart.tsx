@@ -15,8 +15,8 @@ export interface ListItem {
 
 export interface ShoppingCartListContextData {
   items: ListItem[];
-  totalSumAmount: number;
-  totalQtd: number;
+  // totalSumAmount: number;
+  // totalQtd: number;
   addProduct: (
     id: number,
     name: string,
@@ -26,7 +26,7 @@ export interface ShoppingCartListContextData {
     amount: number,
   ) => void;
   onRemove: (id: number) => void;
-  onDecrease: (id: number) => void;
+  onDecrease: (id: number, unitPrice: number) => void;
 }
 
 // constante para os valores padrão do contexto do carrinho de compras
@@ -67,19 +67,36 @@ export const ShoppingListProvider = ({
   };
 
   const removeFromShoppingList = (id: number) => {
-    setShoppingList((prevList) => prevList.filter((item) => item.id !== id));
+    const filteredList = shoppingList.filter((item) => item.id !== id);
+    setShoppingList(filteredList);
   };
 
-  const clearShoppingList = () => {
-    setShoppingList([]);
+  const clearShoppingList = (id: number, price: number) => {
+    const productAlreadyInCart = shoppingList.find((item) => item.id === id);
+    if (productAlreadyInCart && productAlreadyInCart?.quantity <= 1) {
+      return removeFromShoppingList(id);
+    }
+    if (productAlreadyInCart) {
+      const updatedCart = shoppingList.map((cartitem) =>
+        cartitem.id === id
+          ? {
+              ...cartitem,
+              quantity: Number(cartitem.quantity) - 1,
+              amount: cartitem.amount - price,
+            }
+          : cartitem,
+      );
+
+      setShoppingList(updatedCart);
+    }
   };
 
   return (
     <ShoppingListContext.Provider
       value={{
         items: shoppingList,
-        totalSumAmount: 0,
-        totalQtd: 0,
+        // // totalSumAmount: 0,
+        // totalQtd: 0,
         addProduct: addToShoppingList,
         onRemove: removeFromShoppingList,
         onDecrease: clearShoppingList,

@@ -51,13 +51,13 @@ const Header = () => {
       <Container>
         <div className="mx-auto flex w-11/12 items-center justify-between gap-8">
           <div className="w-32 shrink-0">
-            <a href="/">
+            <Link to="/" relative="path">
               <img
                 src="./assets/shopping-market-tic.png"
                 alt="Logo"
                 className="h-auto w-16 object-contain"
               />
-            </a>
+            </Link>
           </div>
 
           <div className="relative flex max-w-2xl flex-1 items-center">
