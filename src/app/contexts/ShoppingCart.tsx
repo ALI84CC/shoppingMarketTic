@@ -1,105 +1,115 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
+import type { ProductProps } from '../interfaces/Product';
 
 interface ShoppingListProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export interface ListItem {
   id: number;
-  name: string;
-  price: number;
-  quantity: number;
+  product: ProductProps;
   unitPrice: number;
   amount: number;
+  quantity: number;
 }
 
 export interface ShoppingCartListContextData {
   items: ListItem[];
-  // totalSumAmount: number;
-  // totalQtd: number;
+  totalSumAmount: number;
+  totalQtd: number;
   addProduct: (
-    id: number,
-    name: string,
-    price: number,
-    quantity: number,
-    unitPrice: number,
-    amount: number,
+    product: ProductProps,
+    quantity?: number,
+    unitPrice?: number,
+    amount?: number,
   ) => void;
   onRemove: (id: number) => void;
-  onDecrease: (id: number, unitPrice: number) => void;
+  onDecrease: (id: number) => void;
 }
 
-// constante para os valores padrão do contexto do carrinho de compras
-const ShoppingListContestDefaultValues = {
-  items: [],
-  totalSumAmount: 0,
-  totalQtd: 0,
-  addProduct: () => null,
-  onRemove: () => null,
-  onDecrease: () => null,
-};
-// contexto para aplicação de carrinho de compras
 const ShoppingListContext = createContext<
   ShoppingCartListContextData | undefined
-  // valores por padrão do contexto do carrinho de compras
->(ShoppingListContestDefaultValues);
-
-// estrutura para as funções do carrinho de compras, incluindo adicionar, remover e limpar itens
+>(undefined);
 
 export const ShoppingListProvider = ({
   children,
 }: ShoppingListProviderProps) => {
-  // itens do carrinho de compras
   const [shoppingList, setShoppingList] = useState<ListItem[]>([]);
 
-  const addToShoppingList = (
-    id: number,
-    name: string,
-    price: number,
-    quantity: number,
-    unitPrice: number,
-    amount: number,
-  ) => {
-    setShoppingList((prevList) => [
-      ...prevList,
-      { id, name, price, quantity, unitPrice, amount },
-    ]);
+  const addProduct = (product: ProductProps) => {
+    setShoppingList((prevList: ListItem[]): ListItem[] => {
+      const existingItem = prevList.find((item) => item.id === product.id);
+
+      if (existingItem) {
+        return prevList.map((item) =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                amount: Number(
+                  ((item.quantity + 1) * (item.product?.preco ?? 0)).toFixed(2),
+                ),
+              }
+            : item,
+        );
+      }
+
+      return [
+        ...prevList,
+        {
+          id: product.id,
+          product,
+          unitPrice: product.preco,
+          quantity: 1,
+          amount: product.preco,
+        },
+      ];
+    });
   };
 
-  const removeFromShoppingList = (id: number) => {
-    const filteredList = shoppingList.filter((item) => item.id !== id);
-    setShoppingList(filteredList);
+  const onRemove = (id: number) => {
+    setShoppingList((prevList) => prevList.filter((item) => item.id !== id));
   };
 
-  const clearShoppingList = (id: number, price: number) => {
-    const productAlreadyInCart = shoppingList.find((item) => item.id === id);
-    if (productAlreadyInCart && productAlreadyInCart?.quantity <= 1) {
-      return removeFromShoppingList(id);
-    }
-    if (productAlreadyInCart) {
-      const updatedCart = shoppingList.map((cartitem) =>
-        cartitem.id === id
+  const onDecrease = (id: number) => {
+    setShoppingList((prevList) => {
+      const existingItem = prevList.find((item) => item.id === id);
+
+      if (!existingItem) {
+        return prevList;
+      }
+
+      if (existingItem.quantity <= 1) {
+        return prevList.filter((item) => item.id !== id);
+      }
+
+      return prevList.map((item) =>
+        item.id === id
           ? {
-              ...cartitem,
-              quantity: Number(cartitem.quantity) - 1,
-              amount: cartitem.amount - price,
+              ...item,
+              quantity: item.quantity - 1,
+              amount: (item.quantity - 1) * item.unitPrice,
             }
-          : cartitem,
+          : item,
       );
-
-      setShoppingList(updatedCart);
-    }
+    });
   };
+
+  const totalSumAmount = shoppingList.reduce(
+    (acc, item) => acc + item.amount,
+    0,
+  );
+  const totalQtd = shoppingList.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <ShoppingListContext.Provider
       value={{
         items: shoppingList,
-        // // totalSumAmount: 0,
-        // totalQtd: 0,
-        addProduct: addToShoppingList,
-        onRemove: removeFromShoppingList,
-        onDecrease: clearShoppingList,
+        totalSumAmount,
+        totalQtd,
+        addProduct,
+        onRemove,
+        onDecrease,
       }}
     >
       {children}
@@ -109,10 +119,12 @@ export const ShoppingListProvider = ({
 
 export const useShoppingList = (): ShoppingCartListContextData => {
   const context = useContext(ShoppingListContext);
+
   if (!context) {
     throw new Error(
       'useShoppingList must be used within a ShoppingListProvider',
     );
   }
+
   return context;
 };

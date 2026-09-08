@@ -18,7 +18,7 @@ const ShoppingCart = () => {
                   <div className="flex flex-col gap-4">
                     <p>
                       <span className="text-center font-bold capitalize">
-                        Produto: {item.name}
+                        Produto: {item.product.nome}
                       </span>
                     </p>
                     <p>
@@ -34,14 +34,7 @@ const ShoppingCart = () => {
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
-                        addProduct(
-                          item.id,
-                          item.name,
-                          item.unitPrice,
-                          item.quantity,
-                          item.amount,
-                          item.unitPrice,
-                        );
+                        addProduct(item.product);
                       }}
                     >
                       +
@@ -49,7 +42,7 @@ const ShoppingCart = () => {
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onDecrease(item.id, item.unitPrice);
+                        onDecrease(item.id);
                       }}
                     >
                       -
