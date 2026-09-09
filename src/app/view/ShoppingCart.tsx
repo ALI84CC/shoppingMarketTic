@@ -26,7 +26,7 @@ const ShoppingCart = () => {
                         Quantidade: {item.quantity}
                       </span>
                       <span className="font-bold">
-                        Valor: R$ {item.unitPrice.toFixed(2)}
+                        Valor: R$ {item.product.preco.toFixed(2)}
                       </span>
                     </p>
                   </div>

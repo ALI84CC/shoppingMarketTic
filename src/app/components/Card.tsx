@@ -37,16 +37,7 @@ const Card = ({ item }: CardProps) => {
         <Button
           className="mt-auto w-full"
           variant="primary"
-          onClick={() =>
-            addProduct(
-              Number(item.id),
-              item.nome,
-              Number(item.descricao),
-              item.preco,
-              Number(item.imagem),
-              1,
-            )
-          }
+          onClick={() => addProduct(item)}
         >
           Adicionar
         </Button>

@@ -9,6 +9,9 @@ import List from './List';
 import Container from './Container';
 import { useOnClickOutside } from '../hooks/useClickOutside';
 import { Link } from 'react-router-dom';
+import { useShoppingList } from '../contexts/ShoppingCart';
+
+const { totalQtd } = useShoppingList();
 
 const Header = () => {
   // Estado local imediato para o valor do input (evita travamentos)
@@ -111,6 +114,11 @@ const Header = () => {
               className="flex items-center justify-center"
             >
               <CiShoppingCart className="h-12 w-20" />
+              {totalQtd > 0 && (
+                <div className="absolute top-0 right-2 flex h-6 w-6 animate-pulse items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white shadow-sm">
+                  <span>{totalQtd}</span>
+                </div>
+              )}
             </Link>
           </div>
         </div>
