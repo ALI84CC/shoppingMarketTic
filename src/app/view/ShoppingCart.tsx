@@ -5,37 +5,48 @@ const ShoppingCart = () => {
   const { items, addProduct, onDecrease, onRemove, totalSumAmount } = useShoppingList();
 
   return (
-    <div className="flex-colo flex h-full gap-12">
-      <div className="h4/5 justify-content mt-32 flex overflow-auto">
-        <div className="flex w-3/6 flex-col gap-8">
+    // Removido flex-colo incorreto e estruturado o container principal com padding inferior para o total fixo
+    <div className="flex flex-col w-full h-screen pb-24 bg-gray-50">
+
+      {/* Container que centraliza o conteúdo e gerencia o scroll */}
+      <div className="flex-1 mt-32 flex justify-center overflow-auto px-4">
+
+        {/* Aumentado a largura máxima (max-w-3xl) e w-full para os cards ficarem largos e centralizados */}
+        <div className="flex w-full max-w-3xl flex-col gap-6">
           {items.map((item) => {
             return (
               <div
-                className="p-8 flex justify-between rounded-3xl bg-white"
+                className="p-6 flex justify-between items-center rounded-3xl bg-white shadow-sm border border-gray-100 w-full"
                 key={item.id}
               >
-                <div className="flex gap-4 p-4">
-                  <div className="flex flex-col gap-4">
+                {/* Ajustado flex para ocupar o espaço todo do card de forma organizada */}
+                <div className="flex justify-between items-center w-full gap-6">
+
+                  {/* Informações do Produto */}
+                  <div className="flex flex-col gap-3">
                     <p>
-                      <span className="text-center text-gray-800 font-bold capitalize text-sm">
+                      <span className="text-gray-800 font-bold capitalize text-base">
                         Produto: {item.product?.nome}
                       </span>
                     </p>
 
-                   <div className="text-xs text-gray-600 mt-1">
+                    <div className="text-sm text-gray-600">
                       <span className="font-semibold text-gray-500">Quantidade:</span>{' '}
-                      <span className="font-bold text-blue-600 bg-blue-5,0 px-2 py-0.5 rounded text-sm">
+                      <span className="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
                         {item.quantity}
                       </span>
+                    </div>
+
+                    <div className="text-sm text-gray-600">
+                      <span className="font-semibold text-gray-500">Total do item:</span>{' '}
+                      <span className="font-bold text-green-600">
+                        R$ {Number(item.amount).toFixed(2)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-600 mt-1">
-                    <span className="font-semibold text-gray-500">Total do item:</span>{' '}
-                    <span className="font-bold text-green-600 text-sm">
-                      R$ {Number(item.amount).toFixed(2)}
-                    </span>
-                  </div>
-                  </div>
-                  <div className="flex flex-col gap-5">
+
+                  {/* Botões de Ação alinhados horizontalmente para não esticar o card verticalmente */}
+                  <div className="flex items-center gap-3">
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -62,36 +73,23 @@ const ShoppingCart = () => {
                       Remover
                     </Button>
                   </div>
+
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-      <div>
-        <span className='ml-16'>
-          <b>Total:</b> R$ {totalSumAmount.toFixed(2)}
+
+      {/* Barra Inferior Fixa posicionando o Total estritamente no canto inferior esquerdo */}
+      <div className="fixed bottom-0 left-0 p-8 bg-white/80 backdrop-blur-md w-full border-t border-gray-200 flex justify-start">
+        <span className="text-xl text-gray-800">
+          <span className="font-medium text-gray-500">Total da compra:</span>{' '}
+          <strong className="text-green-600 font-bold">R$ {totalSumAmount.toFixed(2)}</strong>
         </span>
       </div>
-    </div>
 
-    // <div className="fixed right-4 align-middle">
-    //   {items.map((item) => (
-    //     <div key={item.id} className="flex items-center gap-4 border-b p-4">
-    //       <img
-    //         src={item.unitPrice.toString()}
-    //         alt={item.name}
-    //         className="h-16 w-16 rounded object-cover"
-    //       />
-    //       <div>
-    //         <h3 className="text-lg font-semibold">{item.name}</h3>
-    //         <p className="text-gray-600">Preço: R$ {item.price}</p>
-    //         <p className="text-gray-600">Quantidade: {item.quantity}</p>
-    //         <p className="text-gray-600">Total: R$ {item.amount}</p>
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
+    </div>
   );
 };
 

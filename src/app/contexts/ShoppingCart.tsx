@@ -133,5 +133,8 @@ export const useShoppingList = (): ShoppingCartListContextData => {
       'useShoppingList must be used within a ShoppingListProvider',
     );
   }
+   if (!context) {
+    throw new Error("useShoppingList deve ser usado dentro de um ShoppingListProvider");
+  }
   return context;
 };

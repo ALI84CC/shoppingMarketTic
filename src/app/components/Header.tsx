@@ -12,9 +12,11 @@ import { Link } from 'react-router-dom';
 import { useShoppingList } from '../contexts/ShoppingCart';
 
 
- const { totalQtd } = useShoppingList();
+
 
 const Header = () => {
+
+   const { totalQtd } = useShoppingList();
   // Estado local imediato para o valor do input (evita travamentos)
   const [inputValue, setInputValue] = useState('');
   // Estado que realmente vai disparar a busca no TanStack Query
