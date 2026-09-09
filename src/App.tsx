@@ -1,25 +1,41 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import Header from './app/components/Header';
 import Home from './app/view/Home';
-import Layout from './app/components/Layout';
 import ShoppingCart from './app/view/ShoppingCart';
 import { ShoppingListProvider } from './app/contexts/ShoppingCart';
+
+// 1. Criamos um componente de Layout que envelopa a aplicação inteira no Provider
+const AppLayout = () => {
+  return (
+    <ShoppingListProvider>
+      <div className="min-h-screen w-full bg-gray-200 pb-10 text-gray-900 antialiased">
+        <Header />
+        {/* O Outlet serve para renderizar a página filha (Home ou ShoppingCart) aqui dentro */}
+        <Outlet />
+      </div>
+    </ShoppingListProvider>
+  );
+};
 
 function App() {
   const route = createBrowserRouter([
     {
-      element: <Layout />,
+      path: '/',
+      element: <AppLayout />, // O Layout Pai protege tudo
       children: [
-        { path: '/', element: <Home /> },
-        { path: '/shopping-cart', element: <ShoppingCart /> },
+        {
+          path: '/', // Rota da Página Inicial
+          element: <Home />,
+        },
+        {
+          path: '/shopping-cart', // Rota da Página do Carrinho
+          element: <ShoppingCart />,
+        },
       ],
     },
   ]);
 
-  return (
-    <ShoppingListProvider>
-      <RouterProvider router={route} />
-    </ShoppingListProvider>
-  );
+  return <RouterProvider router={route} />;
 }
 
 export default App;
