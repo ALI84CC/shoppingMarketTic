@@ -2,7 +2,7 @@ import Button from '../components/Button';
 import { useShoppingList } from '../contexts/ShoppingCart';
 
 const ShoppingCart = () => {
-  const { items, addProduct, onDecrease, onRemove } = useShoppingList();
+  const { items, addProduct, onDecrease, onRemove, totalSumAmount } = useShoppingList();
 
   return (
     <div className="flex-colo flex h-full gap-12">
@@ -11,24 +11,29 @@ const ShoppingCart = () => {
           {items.map((item) => {
             return (
               <div
-                className="g-8 flex justify-between rounded-3xl bg-white"
+                className="p-8 flex justify-between rounded-3xl bg-white"
                 key={item.id}
               >
                 <div className="flex gap-4 p-4">
                   <div className="flex flex-col gap-4">
                     <p>
-                      <span className="text-center font-bold capitalize">
-                        Produto: {item.product.nome}
+                      <span className="text-center text-gray-800 font-bold capitalize text-sm">
+                        Produto: {item.product?.nome}
                       </span>
                     </p>
-                    <p>
-                      <span className="font-bold">
-                        Quantidade: {item.quantity}
+
+                   <div className="text-xs text-gray-600 mt-1">
+                      <span className="font-semibold text-gray-500">Quantidade:</span>{' '}
+                      <span className="font-bold text-blue-600 bg-blue-5,0 px-2 py-0.5 rounded text-sm">
+                        {item.quantity}
                       </span>
-                      <span className="font-bold">
-                        Valor: R$ {item.unitPrice.toFixed(2)}
-                      </span>
-                    </p>
+                  </div>
+                  <div className="text-xs text-gray-600 mt-1">
+                    <span className="font-semibold text-gray-500">Total do item:</span>{' '}
+                    <span className="font-bold text-green-600 text-sm">
+                      R$ {Number(item.amount).toFixed(2)}
+                    </span>
+                  </div>
                   </div>
                   <div className="flex flex-col gap-5">
                     <Button
@@ -62,6 +67,11 @@ const ShoppingCart = () => {
             );
           })}
         </div>
+      </div>
+      <div>
+        <span className='ml-16'>
+          <b>Total:</b> R$ {totalSumAmount.toFixed(2)}
+        </span>
       </div>
     </div>
 

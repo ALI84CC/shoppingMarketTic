@@ -1,7 +1,7 @@
 import Input from './Input';
 import { useQuery } from '@tanstack/react-query';
 import ProductService from '../services/product.service';
-import { CiShoppingCart } from 'react-icons/ci';
+import { CiShoppingCart } from "react-icons/ci";
 import type { ProductProps } from '../interfaces/Product';
 import { useMemo, useState, useEffect, type ChangeEvent, useRef } from 'react';
 import { debounce } from 'lodash';
@@ -9,6 +9,10 @@ import List from './List';
 import Container from './Container';
 import { useOnClickOutside } from '../hooks/useClickOutside';
 import { Link } from 'react-router-dom';
+import { useShoppingList } from '../contexts/ShoppingCart';
+
+
+ const { totalQtd } = useShoppingList();
 
 const Header = () => {
   // Estado local imediato para o valor do input (evita travamentos)
@@ -111,6 +115,12 @@ const Header = () => {
               className="flex items-center justify-center"
             >
               <CiShoppingCart className="h-12 w-20" />
+
+              {totalQtd > 0 && (
+                <div className='relative right-8 size-6 flex justify-center rounded-3xl bg-blue-400 '>
+                  <span>{totalQtd}</span>
+                </div>
+              )}
             </Link>
           </div>
         </div>

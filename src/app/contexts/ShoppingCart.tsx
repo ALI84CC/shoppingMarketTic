@@ -95,10 +95,11 @@ export const ShoppingListProvider = ({
     });
   };
 
-  const totalSumAmount = shoppingList.reduce(
-    (acc, item) => acc + item.amount,
-    0,
-  );
+const totalSumAmount = shoppingList.reduce((acc, item) => {
+  const itemAmount = item.amount ?? 0;
+  return Number((acc + itemAmount).toFixed(2));
+}, 0);
+
   const totalQtd = shoppingList.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
