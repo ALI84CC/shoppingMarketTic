@@ -3,6 +3,7 @@ import Header from './app/components/Header';
 import Home from './app/view/Home';
 import ShoppingCart from './app/view/ShoppingCart';
 import { ShoppingListProvider } from './app/contexts/ShoppingCart';
+import Login from './app/view/Login';
 
 // 1. Criamos um componente de Layout que envelopa a aplicação inteira no Provider
 const AppLayout = () => {
@@ -23,6 +24,10 @@ function App() {
       path: '/',
       element: <AppLayout />, // O Layout Pai protege tudo
       children: [
+        {
+          path:"/login",
+          element:<Login />
+        },
         {
           path: '/', // Rota da Página Inicial
           element: <Home />,
