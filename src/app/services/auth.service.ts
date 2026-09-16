@@ -23,6 +23,12 @@ const AuthService= {
   return response.data
  },
 
+ async register(data: { email: string; password: string; username: string }) {
+  // Alterado de '/register' para '/users'
+  const response = await http.post<ReturnDataLogin>('/users', data);
+  return response.data;
+},
+
  setLoggedUser(data: ReturnDataLogin){
   const parsedData= JSON.stringify(data)
   localStorage.setItem("user",parsedData)

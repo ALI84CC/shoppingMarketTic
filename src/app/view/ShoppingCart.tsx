@@ -1,12 +1,26 @@
+import { useEffect } from 'react';
 import Button from '../components/Button';
 import { useShoppingList } from '../contexts/ShoppingCart';
+import { isNull } from 'lodash';
+import AuthService from '../services/auth.service';
+import { useNavigate } from 'react-router-dom';
+import Container from '../components/Container';
 
 const ShoppingCart = () => {
   const { items, addProduct, onDecrease, onRemove, totalSumAmount } = useShoppingList();
+  const navigate = useNavigate();
+
+   useEffect(() => {
+    if(isNull(AuthService.getLoggedUser())){
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
-    // Removido flex-colo incorreto e estruturado o container principal com padding inferior para o total fixo
-    <div className="flex flex-col w-full h-screen pb-24 bg-gray-50">
+  <>
+   <main className="w-full pt-24">
+    <Container>
+      <div className="bg-white p-6 rounded-lg shadow-md">
 
       {/* Container que centraliza o conteúdo e gerencia o scroll */}
       <div className="flex-1 mt-32 flex justify-center overflow-auto px-4">
@@ -88,8 +102,10 @@ const ShoppingCart = () => {
           <strong className="text-green-600 font-bold">R$ {totalSumAmount.toFixed(2)}</strong>
         </span>
       </div>
-
     </div>
+    </Container>
+   </main>
+ </>
   );
 };
 

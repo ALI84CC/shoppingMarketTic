@@ -5,6 +5,8 @@ import ShoppingCart from './app/view/ShoppingCart';
 import { ShoppingListProvider } from './app/contexts/ShoppingCart';
 import Login from './app/view/Login';
 
+import SignUp from './app/view/SignUp';
+
 // 1. Criamos um componente de Layout que envelopa a aplicação inteira no Provider
 const AppLayout = () => {
   return (
@@ -27,6 +29,10 @@ function App() {
         {
           path:"/login",
           element:<Login />
+        },
+         {
+          path:"/register",
+          element:<SignUp />
         },
         {
           path: '/', // Rota da Página Inicial
