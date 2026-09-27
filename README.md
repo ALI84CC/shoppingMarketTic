@@ -1,5 +1,31 @@
 ### 🛒 Shopping Market - E-Commerce
 
+# 🛒 shoppingMarketTic
+
+Uma aplicação web moderna para mercado e compras online.
+
+## 🖥️ Telas do Projeto
+
+### Tela Principal
+<p align="center">
+  <img src="assets/tela-principal.png" alt="Tela Principal do Shopping Market" width="800">
+</p>
+
+---
+
+### Carrinho de Compras
+<p align="center">
+  <img src="assets/tela-carrinho-compra.png" alt="Tela do Carrinho de Compras" width="800">
+</p>
+
+---
+
+### Tela de Login
+<p align="center">
+  <img src="assets/login.png" alt="Tela de Login" width="800">
+</p>
+
+
 Este é um projeto de e-commerce completo com controle de carrinho de compras e sistema de autenticação simulado. A aplicação foi originalmente iniciada durante uma trilha de aprendizado, recebendo posteriormente uma refatoração completa com foco em performance, tipagem estrita e arquitetura de código. 
 
 🎓 **Origem do Projeto:** Base desenvolvido originalmente no curso de React.js ofertado pela [TIC emtrilhas](https://ticemtrilhas.org.br/trail/f92095044ca8c9afd38f3ca75c9f25f468a2577ef41be86f4ba02662).
