@@ -44,15 +44,18 @@ const Header = () => {
     [],
   );
 
-  useEffect(() => {
-    // Busca os dados do usuário que foram salvos no login/cadastro
-    const session = AuthService.getLoggedUser();
-    if (session && session.user) {
-      setUserLogado(session.user);
-    } else {
-      setUserLogado(null);
-    }
-  }, []);
+useEffect(() => {
+  // Busca os dados do usuário que foram salvos no login/cadastro
+  const session = AuthService.getLoggedUser() as any ;
+
+  // CORREÇÃO: Verifica se a sessão existe e se a chave username está direta nela
+  if (session && session.user && session.user.username) {
+    setUserLogado(session.user); // Salva o objeto inteiro direto no estado
+  } else {
+    setUserLogado(null);
+  }
+}, []);
+
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

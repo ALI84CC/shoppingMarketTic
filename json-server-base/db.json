@@ -103,6 +103,12 @@
       "email": "alison@gmail.com",
       "password": "123456",
       "id": 2
+    },
+    {
+      "username": "alison",
+      "email": "alison84cc@gmail.com",
+      "password": "@Alison84",
+      "id": 3
     }
   ]
 }

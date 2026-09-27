@@ -4,6 +4,7 @@ import AuthService from "../services/auth.service";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Container from "../components/Container";
+import { FiArrowLeft } from 'react-icons/fi';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
@@ -37,7 +38,7 @@ const SignUp = () => {
     try {
       const res = await AuthService.register(formData);
       if (res) {
-        AuthService.setLoggedUser(res);
+        AuthService.setLoggedUser(res as any);
         alert("Cadastro realizado com sucesso!");
         navigate("/");
       }
@@ -51,6 +52,18 @@ const SignUp = () => {
     <div className="w-full pt-20 min-h-screen flex items-center justify-center bg-gray-200">
       <Container>
         <div className="mx-auto max-w-sm w-full bg-white p-8 rounded-2xl shadow-md flex flex-col gap-6 text-center">
+
+          <div className="flex items-center justify-start">
+            <Link
+              to="/"
+              className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-500 transition-colors group"
+            >
+              <FiArrowLeft className="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
+              <span>Voltar para a Loja</span>
+            </Link>
+          </div>
+
+
           <h1 className="text-2xl font-bold text-gray-800">Criar Conta</h1>
 
           {errorMessage && (

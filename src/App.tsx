@@ -4,49 +4,48 @@ import Home from './app/view/Home';
 import ShoppingCart from './app/view/ShoppingCart';
 import { ShoppingListProvider } from './app/contexts/ShoppingCart';
 import Login from './app/view/Login';
-
 import SignUp from './app/view/SignUp';
 
-// 1. Criamos um componente de Layout que envelopa a aplicação inteira no Provider
+// 1. O Layout Pai agora cuida APENAS do Header fixo e do Outlet das páginas comuns
 const AppLayout = () => {
   return (
-    <ShoppingListProvider>
-      <div className="min-h-screen w-full bg-gray-200 pb-10 text-gray-900 antialiased">
-        <Header />
-        {/* O Outlet serve para renderizar a página filha (Home ou ShoppingCart) aqui dentro */}
-        <Outlet />
-      </div>
-    </ShoppingListProvider>
+    <div className="min-h-screen w-full bg-gray-200 pb-10 text-gray-900 antialiased">
+      <Header />
+      <Outlet />
+    </div>
   );
 };
 
 function App() {
   const route = createBrowserRouter([
     {
+      // Grupo que exibe a barra superior (Vitrine e Carrinho)
       path: '/',
-      element: <AppLayout />, // O Layout Pai protege tudo
+      element: <AppLayout />,
       children: [
-        {
-          path:"/login",
-          element:<Login />
-        },
-         {
-          path:"/register",
-          element:<SignUp />
-        },
-        {
-          path: '/', // Rota da Página Inicial
-          element: <Home />,
-        },
-        {
-          path: '/shopping-cart', // Rota da Página do Carrinho
-          element: <ShoppingCart />,
-        },
+        { path: '/', element: <Home /> },
+        { path: '/shopping-cart', element: <ShoppingCart /> },
       ],
     },
+    {
+      // Rota de Login Isolada do cabeçalho, mas agora protegida pelo Provider Global
+      path: '/login',
+      element: <Login />
+    },
+    {
+      // Rota de Cadastro Isolada do cabeçalho
+      path: '/register',
+      element: <SignUp />
+    }
   ]);
 
-  return <RouterProvider router={route} />;
+  return (
+    /* 2. CORRIGIDO: O Provider agora envelopa o RouterProvider na raiz.
+       Isso dá superpoderes de contexto para absolutamente TODAS as páginas! */
+    <ShoppingListProvider>
+      <RouterProvider router={route} />
+    </ShoppingListProvider>
+  );
 }
 
 export default App;

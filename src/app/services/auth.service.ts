@@ -5,51 +5,72 @@ interface Login {
   password:string,
 }
 
-interface ReturnDataLogin {
-  result: {acessToken: string},
+export interface ReturnDataLogin {
+  result: {accessToken: string},
   user:{email:string, username:string, id:number}
 }
 
-interface SaveLoginUser{
-  acessToken:string,
+export interface SaveLoginUser{
+  accessToken:string,
   user:{email:string, username:string, id:number}
 }
 
 
-const AuthService= {
- async autenticate(data:Login){
-  const response = await http.post<ReturnDataLogin>("/login",data)
+const AuthService = {
+  // 🔐 CORRIGIDO: Alterado de '/login' para '/users/login'
+  async autenticate(formData: any): Promise<SaveLoginUser> {
 
-  return response.data
- },
+  const response = await http.get(`/users?email=${formData.email}&password=${formData.password}`);
 
- async register(data: { email: string; password: string; username: string }) {
-  // Alterado de '/register' para '/users'
-  const response = await http.post<ReturnDataLogin>('/users', data);
-  return response.data;
+  // O json-server retorna uma lista ([]). Se encontrar alguém, o tamanho será maior que 0
+  if (response.data && response.data.length > 0) {
+    // CORREÇÃO CRÍTICA: Pegamos o primeiro usuário dentro da lista retornada
+    const dbUser = response.data[0];
+
+    const sessionData: SaveLoginUser = {
+      accessToken: "mock-jwt-token-kenzie",
+      user: {
+        email: dbUser.email,
+        // Garante compatibilidade caso o campo no seu db.json se chame 'username' ou 'name'
+        username: dbUser.username || dbUser.name,
+        id: dbUser.id
+      }
+    };
+
+    return sessionData;
+  }
+
+  // Se a lista vier vazia ([]), força a queda no bloco catch do Login.tsx
+  throw new Error("Usuário ou senha inválidos");
 },
 
- setLoggedUser(data: ReturnDataLogin){
-  const parsedData= JSON.stringify(data)
-  localStorage.setItem("user",parsedData)
- },
+  // 📝 SEU CADASTRO QUE JÁ ESTÁ FUNCIONANDO PERFEITAMENTE:
+  async register(data: { email: string; password: string; username: string }) {
+    const response = await http.post<ReturnDataLogin>('/users', data);
+    return response.data;
+  },
 
- getLoggedUser(){
-  const data = localStorage.getItem("user")
-  if(!data) return null
-  try{
-    const parsedData: SaveLoginUser = JSON.parse(data)
-    return parsedData
-  } catch (error){
-    console.error(error)
-    return null
+  // Grava os dados da sessão
+  setLoggedUser(data: SaveLoginUser) {
+    const parsedData = JSON.stringify(data);
+    localStorage.setItem("user", parsedData);
+  },
+
+  // Recupera os dados
+  getLoggedUser(): null {
+    const data = localStorage.getItem("user");
+    if (!data) return null;
+    try {
+       return JSON.parse(data); // Retorna o objeto completo { accessToken, user }
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  },
+
+  cleanLoggedUser() {
+    localStorage.clear();
   }
- },
+};
 
- cleanLoggedUser(){
-  localStorage.clear()
- }
-}
-
-
-export default AuthService
+export default AuthService;
