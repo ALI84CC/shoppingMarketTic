@@ -61,5 +61,5 @@ Use o código com cuidado.
 
 ### 🌐 Deploys Ativos
 
-* **Front-end (Interface):** [Acesse na Vercel](https://seu-link-da-vercel.vercel.app)
-* **Back-end (Mock API):** [Acesse no Render](https://seu-link-do-render.onrender.com)
+- **Front-end (Interface):** [Acesse na Vercel](https://vercel.app)
+- **Back-end (Mock API):** [Acesse no Render](https://onrender.com)
