@@ -1,75 +1,65 @@
-# React + TypeScript + Vite
+### 🛒 Shopping Market - E-Commerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto de e-commerce completo com controle de carrinho de compras e sistema de autenticação simulado. A aplicação foi originalmente iniciada durante uma trilha de aprendizado, recebendo posteriormente uma refatoração completa com foco em performance, tipagem estrita e arquitetura de código. 
 
-Currently, two official plugins are available:
+🎓 **Origem do Projeto:** Base desenvolvido originalmente no curso de React.js ofertado pela [TIC emtrilhas](https://ticemtrilhas.org.br/trail/f92095044ca8c9afd38f3ca75c9f25f468a2577ef41be86f4ba02662).
+🚀 **Evolução Pessoal:** Por iniciativa própria e para aprimorar a prática técnica, o projeto foi totalmente reestruturado. Atualizei as formas de conexão com APIs, adotei tipagem estrita com TypeScript, otimizei os fluxos de estado e reescrevi componentes para refletir os padrões atuais dos frameworks. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 🛠️ Tecnologias e Frameworks Atualizados
 
-## React Compiler
+* **React.js (v19+) & Vite:** Configuração moderna de ambiente com Hot Module Replacement (HMR).
+* **TypeScript:** Implementação de interfaces estritas para contratos de API e tipagem de componentes.
+* **Tailwind CSS:** Estruturação visual responsiva adaptada para resoluções desktop (ex: 1440px).
+* **Axios:** Centralização de requisições através de instâncias personalizadas (http-common.ts).
+* **TanStack Query (React Query):** Gerenciamento de estado assíncrono e cache para buscas otimizadas com debounce.
+* **React Router Dom:** Gerenciamento de rotas e proteção de fluxos de autenticação.
+* **JSON Server:** Mock API REST simulando o armazenamento persistente em banco de dados.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🏗️ Diferenciais de Engenharia Implementados
 
-## Expanding the ESLint configuration
+* **Tratamento Dinâmico de APIs:** Ajuste adaptativo para APIs Mock que retornam coleções em estruturas de array.
+* **Segurança de Variáveis de Ambiente:** Isolamento completo de endpoints locais (.env.local) e de produção (.env.production), garantindo transições suaves entre desenvolvimento e deploy.
+* **UX Fluida:** Inclusão de navegações de retorno (Link / FiArrowLeft), prevenindo bloqueios em formulários de login e cadastro.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🚀 Como Executar o Projeto Localmente
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+O repositório está estruturado como um Monorepo, contendo tanto o cliente (frontend) quanto a API mockada (backend). 
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Clonar o Repositório
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+bash
 
-```
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Use o código com cuidado.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. Configurar e Iniciar o Servidor (Backend)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+bash
 
-```
+cd json-server-base
+npm install
+npm run start
+
+Use o código com cuidado.
+
+*O servidor mock iniciará na porta 3001.* 
+
+### 3. Configurar e Iniciar a Aplicação (Frontend)
+
+Abra um novo terminal na raiz do projeto: 
+
+bash
+
+npm install
+npm run dev
+
+Use o código com cuidado.
+
+*A aplicação estará disponível em http://localhost:5173.* 
+
+### 🌐 Deploys Ativos
+
+* **Front-end (Interface):** [Acesse na Vercel](https://seu-link-da-vercel.vercel.app)
+* **Back-end (Mock API):** [Acesse no Render](https://seu-link-do-render.onrender.com)
