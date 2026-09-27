@@ -1,13 +1,16 @@
-import axios, { type AxiosInstance } from 'axios';
+import axios, { type AxiosInstance } from "axios";
 
-const httpClient:AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
-  headers:{
+
+const httpClient: AxiosInstance = axios.create({
+  // O Vite vai escolher sozinho: localhost no seu PC, Render na Vercel!
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {
     "Content-type": "application/json",
-  }
-})
+  },
+});
 
-export default httpClient
+export default httpClient;
+
 /*export default axios.create({
   // Adicionada a barra "/" no final para garantir caminhos limpos nas rotas
   baseURL: 'http://localhost:3001/',
