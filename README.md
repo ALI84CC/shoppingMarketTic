@@ -26,66 +26,62 @@ Uma aplicação web moderna para mercado e compras online.
 </p>
 
 
-Este é um projeto de e-commerce completo com controle de carrinho de compras e sistema de autenticação simulado. A aplicação foi originalmente iniciada durante uma trilha de aprendizado, recebendo posteriormente uma refatoração completa com foco em performance, tipagem estrita e arquitetura de código. 
+Este é um projeto de e-commerce completo com controle de carrinho de compras e sistema de autenticação estruturado em TypeScript. A aplicação foi originalmente iniciada como um projeto de estudo e, posteriormente, evoluída de forma independente para aplicar padrões avançados de engenharia de software e arquitetura de sistemas.
 
-🎓 **Origem do Projeto:** Base desenvolvido originalmente no curso de React.js ofertado pela [TIC emtrilhas](https://ticemtrilhas.org.br/trail/f92095044ca8c9afd38f3ca75c9f25f468a2577ef41be86f4ba02662).
-🚀 **Evolução Pessoal:** Por iniciativa própria e para aprimorar a prática técnica, o projeto foi totalmente reestruturado. Atualizei as formas de conexão com APIs, adotei tipagem estrita com TypeScript, otimizei os fluxos de estado e reescrevi componentes para refletir os padrões atuais dos frameworks. 
+> 🎓 **Contexto de Desenvolvimento:** Base construída durante a trilha de aprendizado em React.js ofertada pela **TIC emtrilhas**.
+> 🚀 **Evolução de Portfólio:** Por iniciativa própria e foco em evolução de carreira, realizei uma refatoração total da aplicação. Atualizei a stack para TypeScript estrito, reconstruí os contratos de integração com APIs, isolei fluxos de variáveis de ambiente e configurei uma arquitetura estável de deploy independente.
 
-### 🛠️ Tecnologias e Frameworks Atualizados
+---
 
-* **React.js (v19+) & Vite:** Configuração moderna de ambiente com Hot Module Replacement (HMR).
-* **TypeScript:** Implementação de interfaces estritas para contratos de API e tipagem de componentes.
-* **Tailwind CSS:** Estruturação visual responsiva adaptada para resoluções desktop (ex: 1440px).
-* **Axios:** Centralização de requisições através de instâncias personalizadas (http-common.ts).
-* **TanStack Query (React Query):** Gerenciamento de estado assíncrono e cache para buscas otimizadas com debounce.
-* **React Router Dom:** Gerenciamento de rotas e proteção de fluxos de autenticação.
-* **JSON Server:** Mock API REST simulando o armazenamento persistente em banco de dados.
+## 🛠️ Tecnologias e Frameworks Atualizados
 
-### 🏗️ Diferenciais de Engenharia Implementados
+- **React.js & Vite:** Setup moderno focado em alta performance e Hot Module Replacement (HMR).
+- **TypeScript:** Implementação de tipagem estrita para segurança de dados entre componentes e requisições.
+- **Tailwind CSS:** Estilização componentizada e responsiva com foco em otimização para telas desktop (1440px).
+- **Axios:** Centralização de chamadas HTTP usando instâncias customizadas (`http-common.ts`).
+- **TanStack Query (React Query):** Gerenciamento de cache assíncrono para buscas textuais otimizadas com debounce.
+- **React Router Dom:** Gerenciamento de navegação e fluxos de autenticação.
+- **JSON Server Base:** Mock API REST simulando o armazenamento persistente em banco de dados independente.
 
-* **Tratamento Dinâmico de APIs:** Ajuste adaptativo para APIs Mock que retornam coleções em estruturas de array.
-* **Segurança de Variáveis de Ambiente:** Isolamento completo de endpoints locais (.env.local) e de produção (.env.production), garantindo transições suaves entre desenvolvimento e deploy.
-* **UX Fluida:** Inclusão de navegações de retorno (Link / FiArrowLeft), prevenindo bloqueios em formulários de login e cadastro.
+---
 
-### 🚀 Como Executar o Projeto Localmente
+## 🏗️ Soluções de Engenharia Implementadas
 
-O repositório está estruturado como um Monorepo, contendo tanto o cliente (frontend) quanto a API mockada (backend). 
+- **Tratamento Dinâmico de Coleções:** Correção na camada de serviço para mapeamento e tratamento de respostas HTTP retornadas em formato de Array por APIs mockadas, adaptando-as para os estados locais do React.
+- **Isolamento de Ambientes (CI/CD):** Separação rígida de chaves através de `.env.local` (desenvolvimento) e `.env.production` (produção), mantendo dados sensíveis protegidos via `.gitignore`.
+- **Evolução de UX/UI:** Correção de concorrência na exibição do estado de login no cabeçalho (`Header.tsx`) e implementação de navegação de retorno fluida (`FiArrowLeft`) para evitar travamentos de formulários.
+
+---
+
+## 🚀 Como Executar o Projeto Localmente
+
+O repositório está estruturado como um Monorepo, contendo tanto o cliente (frontend) quanto a API mockada (backend).
 
 ### 1. Clonar o Repositório
-
-bash
-
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
-
-Use o código com cuidado.
+```bash
+git clone https://github.com
+cd shoppingMarketTic
+```
 
 ### 2. Configurar e Iniciar o Servidor (Backend)
-
-bash
-
+```bash
 cd json-server-base
 npm install
 npm run start
-
-Use o código com cuidado.
-
-*O servidor mock iniciará na porta 3001.* 
+```
+*O servidor mock iniciará localmente na porta `3001`.*
 
 ### 3. Configurar e Iniciar a Aplicação (Frontend)
-
-Abra um novo terminal na raiz do projeto: 
-
-bash
-
+Abra um novo terminal na raiz principal do projeto:
+```bash
 npm install
 npm run dev
+```
+*A aplicação frontend estará disponível em `http://localhost:5173`.*
 
-Use o código com cuidado.
+---
 
-*A aplicação estará disponível em http://localhost:5173.* 
+## 🌐 Deploys Ativos
 
-### 🌐 Deploys Ativos
-
-* **Front-end (Interface):** [Acesse na Vercel](https://seu-link-da-vercel.vercel.app)
-* **Back-end (Mock API):** [Acesse no Render](https://seu-link-do-render.onrender.com)
+- **Front-end (Interface da Loja):** [Acesse a aplicação na Vercel](https://vercel.app)
+- **Back-end (Serviço de API):** [Acesse o banco de dados no Render](https://onrender.com)

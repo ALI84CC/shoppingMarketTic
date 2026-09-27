@@ -30,6 +30,10 @@ dist-ssr
 .env.test.local
 .env.production.local
 
+# Variáveis de ambiente locais e de produção
+.env
+.env.local
+.env.production
 
 # Adicione esta linha para bloquear a pasta pesada do seu backend também:
 json-server-base/node_modules
