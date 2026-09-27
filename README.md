@@ -6,25 +6,24 @@ Uma aplicação web moderna para mercado e compras online.
 
 ## 🖥️ Telas do Projeto
 
-### Tela Principal
-<p align="center">
-  <img src="assets/tela-principal.png" alt="Tela Principal do Shopping Market" width="800">
-</p>
-
----
-
-### Carrinho de Compras
-<p align="center">
-  <img src="assets/tela-carrinho-compra.png" alt="Tela do Carrinho de Compras" width="800">
-</p>
-
----
-
-### Tela de Login
-<p align="center">
-  <img src="assets/login.png" alt="Tela de Login" width="800">
-</p>
-
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>Tela Principal</b><br>
+      <img src="assets/home.png" alt="Tela Principal" width="450">
+    </td>
+    <td align="center">
+      <b>Carrinho de Compras</b><br>
+      <img src="assets/carrinho.png" alt="Carrinho de Compras" width="450">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <b>Tela de Login</b><br>
+      <img src="assets/tela-login.png" alt="Tela de Login" width="450">
+    </td>
+  </tr>
+</table>
 
 Este é um projeto de e-commerce completo com controle de carrinho de compras e sistema de autenticação estruturado em TypeScript. A aplicação foi originalmente iniciada como um projeto de estudo e, posteriormente, evoluída de forma independente para aplicar padrões avançados de engenharia de software e arquitetura de sistemas.
 
