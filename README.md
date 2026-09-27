@@ -10,11 +10,11 @@ Uma aplicação web moderna para mercado e compras online.
   <tr>
     <td align="center">
       <b>Tela Principal</b><br>
-      <img src="assets/home.png" alt="Tela Principal" width="450">
+      <img src="assets/tela-princiapl.png" alt="Tela Principal" width="450">
     </td>
     <td align="center">
       <b>Carrinho de Compras</b><br>
-      <img src="assets/carrinho.png" alt="Carrinho de Compras" width="450">
+      <img src="assets/tela-carrinho-compra.png" alt="Carrinho de Compras" width="450">
     </td>
   </tr>
   <tr>
