@@ -5,23 +5,16 @@
 Uma aplicação web moderna para mercado e compras online.
 
 ## 🖥️ Telas do Projeto
-
 <table align="center">
   <tr>
-    <td align="center">
-      <b>Tela Principal</b><br>
-      <img src="assets/tela-principal.png" alt="Tela Principal" width="450">
-    </td>
-    <td align="center">
-      <b>Carrinho de Compras</b><br>
-      <img src="assets/tela-carrinho-compra.png" alt="Carrinho de Compras" width="450">
-    </td>
+    <td align="center"><b>Tela Principal</b></td>
+    <td align="center"><b>Carrinho de Compras</b></td>
+    <td align="center"><b>Tela de Login</b></td>
   </tr>
   <tr>
-    <td align="center" colspan="2">
-      <b>Tela de Login</b><br>
-      <img src="assets/tela-login.png" alt="Tela de Login" width="450">
-    </td>
+    <td><img src="assets/tela-principal.png" alt="Tela Principal" width="300"></td>
+    <td><img src="assets/tela-carrinho-compra.png" alt="Carrinho de Compras" width="300"></td>
+    <td><img src="assets/tela-login.png" alt="Tela de Login" width="300"></td>
   </tr>
 </table>
 
