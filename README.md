@@ -4,6 +4,8 @@
 
 Uma aplicação web moderna para mercado e compras online.
 
+[🚀 Clique aqui para acessar a aplicação em produção](https://shopping-market-tic-git-main-alison-costas-projects-402dec72.vercel.app/)
+
 ## 🖥️ Telas do Projeto
 <table align="center">
   <tr>
@@ -69,8 +71,6 @@ Abra um novo terminal na raiz principal do projeto:
 npm install
 npm run dev
 ```
-*A aplicação frontend estará disponível em `http://localhost:5173`.*
-
 ---
 
 ## 🌐 Deploys Ativos
