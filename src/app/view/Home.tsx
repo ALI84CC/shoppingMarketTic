@@ -76,7 +76,8 @@ const Home = () => {
   return (
     <main className="mb-10 flex w-full flex-col items-center gap-6 px-4 pt-24">
       <Container>
-        <div className="relative flex w-11/12 max-w-7xl flex-col items-end pb-4">
+        {/* Área do Filtro */}
+        <div className="relative flex w-full flex-col items-end pb-4">
           <button
             className="text-md cursor-pointer rounded-md bg-blue-500 px-8 py-2.5 font-medium text-white shadow-sm transition-colors hover:bg-blue-600"
             onClick={handleFilterButton}
@@ -100,13 +101,12 @@ const Home = () => {
             })}
           </ul>
         </div>
-        {/* Grid Responsiva: 1 coluna no celular, 2 em tablets, 4 em telas grandes */}
-        <div className="w-11/12 max-w-7xl">
-          <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {products?.map((product: ProductProps) => (
-              <Card key={product.id} item={product} />
-            ))}
-          </div>
+
+        {/* Grid Responsiva ocupando 100% da largura do Container */}
+        <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {products?.map((product: ProductProps) => (
+            <Card key={product.id} item={product} />
+          ))}
         </div>
       </Container>
     </main>

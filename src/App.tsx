@@ -30,13 +30,13 @@ function App() {
     {
       // Rota de Login Isolada do cabeçalho, mas agora protegida pelo Provider Global
       path: '/login',
-      element: <Login />
+      element: <Login />,
     },
     {
       // Rota de Cadastro Isolada do cabeçalho
       path: '/register',
-      element: <SignUp />
-    }
+      element: <SignUp />,
+    },
   ]);
 
   return (

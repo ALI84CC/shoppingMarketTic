@@ -15,9 +15,9 @@ const Card = ({ item }: CardProps) => {
   });
 
   return (
-    <div className="group flex h-5 w-full flex-col justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+    <div className="group flex h-auto w-full flex-col justify-between overflow-hidden rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
       {/* 1. Área da Imagem com fundo sutil e zoom suave no hover */}
-      <div className="flex h-32 w-full items-center justify-center rounded-lg bg-gray-50 p-3">
+      <div className="flex h-auto w-full items-center justify-center rounded-lg bg-gray-50 p-3">
         <img
           src={item.imagem}
           alt={item.nome}
@@ -29,12 +29,12 @@ const Card = ({ item }: CardProps) => {
       <div className="mt-3 flex flex-1 flex-col text-left">
         <h3
           title={item.nome}
-          className="truncate text-sm font-bold text-gray-800 capitalize"
+          className="truncate text-sm font-bold !text-gray-800 capitalize"
         >
           {item.nome.replaceAll('-', ' ')}
         </h3>
 
-        <p className="mt-1 line-clamp-2 min-h-8 text-xs leading-relaxed text-gray-500">
+        <p className="mt-1 line-clamp-2 h-8 text-xs leading-relaxed !text-gray-600">
           {item.descricao}
         </p>
 
