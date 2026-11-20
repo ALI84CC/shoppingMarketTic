@@ -1,20 +1,18 @@
 import Input from './Input';
 import { useQuery } from '@tanstack/react-query';
 import ProductService from '../services/product.service';
-import { CiShoppingCart } from "react-icons/ci";
+import { CiShoppingCart } from 'react-icons/ci';
 import type { ProductProps } from '../interfaces/Product';
 import { useMemo, useState, useEffect, type ChangeEvent, useRef } from 'react';
-import { debounce, isNull } from 'lodash';
+import { debounce } from 'lodash';
 import List from './List';
 import Container from './Container';
 import { useOnClickOutside } from '../hooks/useClickOutside';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useShoppingList } from '../contexts/ShoppingCart';
 import AuthService from '../services/auth.service';
 
-
 const Header = () => {
-
   const { totalQtd } = useShoppingList();
   // Estado local imediato para o valor do input (evita travamentos)
   const [inputValue, setInputValue] = useState('');
@@ -24,7 +22,6 @@ const Header = () => {
   const [userLogado, setUserLogado] = useState<any>(null);
 
   const refDropDown = useRef<HTMLUListElement>(null!);
-
 
   const { data: productByName, isLoading } = useQuery<ProductProps[], Error>({
     queryKey: ['query-products-by-name', searchTerm],
@@ -44,18 +41,17 @@ const Header = () => {
     [],
   );
 
-useEffect(() => {
-  // Busca os dados do usuário que foram salvos no login/cadastro
-  const session = AuthService.getLoggedUser() as any ;
+  useEffect(() => {
+    // Busca os dados do usuário que foram salvos no login/cadastro
+    const session = AuthService.getLoggedUser() as any;
 
-  // CORREÇÃO: Verifica se a sessão existe e se a chave username está direta nela
-  if (session && session.user && session.user.username) {
-    setUserLogado(session.user); // Salva o objeto inteiro direto no estado
-  } else {
-    setUserLogado(null);
-  }
-}, []);
-
+    // CORREÇÃO: Verifica se a sessão existe e se a chave username está direta nela
+    if (session && session.user && session.user.username) {
+      setUserLogado(session.user); // Salva o objeto inteiro direto no estado
+    } else {
+      setUserLogado(null);
+    }
+  }, []);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -71,7 +67,6 @@ useEffect(() => {
     <header className="fixed top-0 right-0 z-50 flex h-20 w-full items-center justify-center border-b border-gray-500 bg-white py-4 shadow-md">
       <Container>
         <div className="mx-auto flex w-11/12 items-center justify-between gap-8">
-
           {/* 1. Bloco da Logo */}
           <div className="w-32 shrink-0">
             <Link to="/">
@@ -86,43 +81,62 @@ useEffect(() => {
           {/* 2. Bloco da Barra de Busca */}
           <div className="relative flex max-w-2xl flex-1 items-center">
             <Input value={inputValue} onChange={handleInput} />
-            {isOpen && searchTerm.trim() !== '' && productByName && Array.isArray(productByName) && productByName.length > 0 && (
-              <ul
-                ref={refDropDown}
-                className="absolute top-full right-0 left-0 z-50 mt-2 max-h-64 overflow-y-auto rounded-md border border-gray-200 bg-white p-2 shadow-xl"
-              >
-                {productByName.map((product: ProductProps) => (
-                  <List
-                    key={product.id}
-                    className="flex cursor-pointer items-center justify-between p-2 hover:bg-gray-50"
-                  >
-                    <span className="font-medium text-gray-800">{product.nome}</span>
-                    <div className="flex items-center gap-3">
-                      <img src={product.imagem} className="h-10 w-10 rounded object-cover" alt={product.nome} />
-                      <span className="text-sm font-semibold text-green-600">R$ {product.preco}</span>
-                    </div>
-                  </List>
-                ))}
-              </ul>
+            {isOpen &&
+              searchTerm.trim() !== '' &&
+              productByName &&
+              Array.isArray(productByName) &&
+              productByName.length > 0 && (
+                <ul
+                  ref={refDropDown}
+                  className="absolute top-full right-0 left-0 z-50 mt-2 max-h-64 overflow-y-auto rounded-md border border-gray-200 bg-white p-2 shadow-xl"
+                >
+                  {productByName.map((product: ProductProps) => (
+                    <List
+                      key={product.id}
+                      className="flex cursor-pointer items-center justify-between p-2 hover:bg-gray-50"
+                    >
+                      <span className="font-medium text-gray-800">
+                        {product.nome}
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={product.imagem}
+                          className="h-10 w-10 rounded object-cover"
+                          alt={product.nome}
+                        />
+                        <span className="text-sm font-semibold text-green-600">
+                          R$ {product.preco}
+                        </span>
+                      </div>
+                    </List>
+                  ))}
+                </ul>
+              )}
+            {isLoading && (
+              <span className="absolute right-3 text-xs text-gray-400">
+                Buscando...
+              </span>
             )}
-            {isLoading && <span className="absolute right-3 text-xs text-gray-400">Buscando...</span>}
           </div>
 
           {/* 3. Bloco de Ações da Direita (Boas-vindas, Carrinho e Login/Logout) */}
-          <div className="flex items-center gap-6 shrink-0">
-
+          <div className="flex shrink-0 items-center gap-6">
             {/* Mensagem de Boas-Vindas ou Link para Login */}
             {userLogado ? (
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-gray-600">
-                  Olá, <strong className="capitalize text-gray-800">{userLogado.username}</strong>!
+                  Olá,{' '}
+                  <strong className="text-gray-800 capitalize">
+                    {userLogado.username}
+                  </strong>
+                  !
                 </span>
                 <button
                   onClick={() => {
                     AuthService.cleanLoggedUser(); // Limpa totalmente o localStorage
-                    window.location.reload();      // Recarrega a página de forma limpa
+                    window.location.reload(); // Recarrega a página de forma limpa
                   }}
-                  className="cursor-pointer text-xs font-semibold text-red-500 hover:text-red-700 transition-colors underline"
+                  className="cursor-pointer text-xs font-semibold text-red-500 underline transition-colors hover:text-red-700"
                 >
                   Sair
                 </button>
@@ -130,15 +144,18 @@ useEffect(() => {
             ) : (
               <Link
                 to="/login"
-                className="text-sm font-semibold text-blue-500 hover:text-blue-700 transition-colors"
+                className="text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700"
               >
                 Entrar
               </Link>
             )}
 
             {/* Ícone do Carrinho com o Contador flutuando perfeitamente por cima */}
-            <Link to="/shopping-cart" className="relative flex items-center justify-center p-1">
-              <CiShoppingCart className="h-9 w-9 text-gray-700 hover:text-blue-500 transition-colors" />
+            <Link
+              to="/shopping-cart"
+              className="relative flex items-center justify-center p-1"
+            >
+              <CiShoppingCart className="h-9 w-9 text-gray-700 transition-colors hover:text-blue-500" />
 
               {totalQtd > 0 && (
                 // O uso de 'absolute' faz a bolinha azul ficar cravada no canto superior direito do ícone
@@ -147,9 +164,7 @@ useEffect(() => {
                 </div>
               )}
             </Link>
-
           </div>
-
         </div>
       </Container>
     </header>

@@ -9,42 +9,48 @@ interface CardProps {
 const Card = ({ item }: CardProps) => {
   const { addProduct } = useShoppingList();
 
-  return (
-    <div className="flex h-[300px] w-full max-w-[220px] flex-col justify-between rounded-lg bg-white p-4 shadow-md transition-shadow hover:shadow-lg">
+  const precoFormatado = Number(item.preco).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 
-      {/* 1. Área da Imagem (Tamanho controlado para não empurrar o resto) */}
-      <div className="flex h-24 w-full items-center justify-center">
+  return (
+    <div className="group flex h-5 w-full flex-col justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+      {/* 1. Área da Imagem com fundo sutil e zoom suave no hover */}
+      <div className="flex h-32 w-full items-center justify-center rounded-lg bg-gray-50 p-3">
         <img
           src={item.imagem}
           alt={item.nome}
-          className="h-full w-auto object-contain"
+          className="h-full w-auto object-contain transition-transform duration-200 group-hover:scale-105"
         />
       </div>
 
-      {/* 2. Área de Textos e Preço (Sem preenchimentos extras que estouram o card) */}
-      <div className="mt-2 flex flex-1 flex-col justify-between text-center">
-        <div>
-          <h3 className="text-sm font-bold text-gray-800 capitalize leading-tight truncate">
-            {item.nome}
-          </h3>
-          {/* O line-clamp-2 agora funciona perfeitamente pois a div não é flex */}
-          <p className="mt-1 line-clamp-2 text-xs text-gray-500 px-1">
-            {item.descricao}
-          </p>
-        </div>
+      {/* 2. Área de Textos */}
+      <div className="mt-3 flex flex-1 flex-col text-left">
+        <h3
+          title={item.nome}
+          className="truncate text-sm font-bold text-gray-800 capitalize"
+        >
+          {item.nome.replaceAll('-', ' ')}
+        </h3>
 
-        <div className="my-1 text-sm font-semibold text-gray-700">
-          R$ {item.preco}
+        <p className="mt-1 line-clamp-2 min-h-8 text-xs leading-relaxed text-gray-500">
+          {item.descricao}
+        </p>
+
+        {/* Preço alinhado e destacado */}
+        <div className="mt-3 text-base font-extrabold text-gray-900">
+          {precoFormatado}
         </div>
       </div>
 
-      {/* 3. Botão sempre visível na base e com chamada de função corrigida */}
+      {/* 3. Botão na base */}
       <Button
-        className="mt-auto w-full text-xs py-2"
+        className="mt-3 w-full py-2 text-xs font-semibold tracking-wide"
         variant="primary"
-        onClick={() => addProduct(item)} // Passa o objeto completo unificado!
+        onClick={() => addProduct(item)}
       >
-        Adicionar
+        Adicionar ao carrinho
       </Button>
     </div>
   );
