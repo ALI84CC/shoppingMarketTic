@@ -64,22 +64,22 @@ const Header = () => {
   });
 
   return (
-    <header className="fixed top-0 right-0 z-50 flex h-20 w-full items-center justify-center border-b border-gray-500 bg-white py-4 shadow-md">
+    <header className="fixed top-0 right-0 z-50 flex min-h-20 w-full items-center justify-center border-b border-gray-500 bg-white py-3 shadow-md md:py-4">
       <Container>
-        <div className="mx-auto flex w-11/12 items-center justify-between gap-8">
-          {/* 1. Bloco da Logo */}
-          <div className="w-32 shrink-0">
+        <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-3 px-2 md:w-11/12 md:flex-nowrap md:gap-8 md:px-0">
+          {/* 1. Bloco da Logo (sem w-32 no mobile para não roubar espaço) */}
+          <div className="shrink-0 md:w-32">
             <Link to="/">
               <img
                 src="./assets/shopping-market-tic.png"
                 alt="Logo"
-                className="h-auto w-16 object-contain"
+                className="h-auto w-12 object-contain md:w-16"
               />
             </Link>
           </div>
 
-          {/* 2. Bloco da Barra de Busca */}
-          <div className="relative flex max-w-2xl flex-1 items-center">
+          {/* 2. Bloco da Barra de Busca (linha inteira abaixo no mobile; no meio no desktop) */}
+          <div className="relative order-3 flex w-full items-center md:order-2 md:max-w-2xl md:flex-1">
             <Input value={inputValue} onChange={handleInput} />
             {isOpen &&
               searchTerm.trim() !== '' &&
@@ -119,12 +119,11 @@ const Header = () => {
             )}
           </div>
 
-          {/* 3. Bloco de Ações da Direita (Boas-vindas, Carrinho e Login/Logout) */}
-          <div className="flex shrink-0 items-center gap-6">
-            {/* Mensagem de Boas-Vindas ou Link para Login */}
+          {/* 3. Bloco de Ações da Direita (fica na 1ª linha no mobile e na ponta direita no desktop) */}
+          <div className="order-2 flex shrink-0 items-center gap-3 md:order-3 md:gap-6">
             {userLogado ? (
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-gray-600">
+              <div className="flex items-center gap-2 md:gap-3">
+                <span className="max-w-[110px] truncate text-xs font-medium text-gray-600 sm:max-w-none md:text-sm">
                   Olá,{' '}
                   <strong className="text-gray-800 capitalize">
                     {userLogado.username}
@@ -133,8 +132,8 @@ const Header = () => {
                 </span>
                 <button
                   onClick={() => {
-                    AuthService.cleanLoggedUser(); // Limpa totalmente o localStorage
-                    window.location.reload(); // Recarrega a página de forma limpa
+                    AuthService.cleanLoggedUser();
+                    window.location.reload();
                   }}
                   className="cursor-pointer text-xs font-semibold text-red-500 underline transition-colors hover:text-red-700"
                 >
@@ -150,15 +149,13 @@ const Header = () => {
               </Link>
             )}
 
-            {/* Ícone do Carrinho com o Contador flutuando perfeitamente por cima */}
             <Link
               to="/shopping-cart"
               className="relative flex items-center justify-center p-1"
             >
-              <CiShoppingCart className="h-9 w-9 text-gray-700 transition-colors hover:text-blue-500" />
+              <CiShoppingCart className="h-8 w-8 text-gray-700 transition-colors hover:text-blue-500 md:h-9 md:w-9" />
 
               {totalQtd > 0 && (
-                // O uso de 'absolute' faz a bolinha azul ficar cravada no canto superior direito do ícone
                 <div className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white shadow-sm">
                   <span>{totalQtd}</span>
                 </div>

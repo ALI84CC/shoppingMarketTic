@@ -2,9 +2,10 @@
 
 Aplicação web de mercado e compras online, com carrinho de compras e login.
 
-**🚀 Ver funcionando:** [Clique aqui para acessar a aplicação em produção]
+**🚀 Ver funcionando:** [\[Clique aqui para acessar a aplicação em produção\]](https://shopping-market-tic.vercel.app/)
 
 ### O que o projeto faz
+
 - Listagem de produtos
 - Busca de produtos com filtro
 - Carrinho de compras (adicionar, remover, alterar quantidade)
@@ -14,9 +15,11 @@ Aplicação web de mercado e compras online, com carrinho de compras e login.
 > Obs: O back-end é simulado com JSON Server, para treinar o consumo de API no front-end.
 
 ### Telas do Projeto
+
 [Coloca aqui 1 print grande da Tela Principal]
 
 ### Tecnologias que usei
+
 - React.js + Vite
 - TypeScript
 - Tailwind CSS
@@ -40,6 +43,7 @@ npm run server
 npm run dev
 
 ### O que eu aprendi nesse projeto
+
 - Comecei na trilha de React do TIC em Trilhas e depois continuei sozinho, refazendo o projeto em TypeScript
 - Aprendi a tipar os dados que vêm da API para evitar erro
 - Aprendi a usar TanStack Query para não ficar chamando a API toda hora
