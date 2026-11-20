@@ -1,46 +1,79 @@
-# 🛒 Shopping Market — E-Commerce
+### 🛒 Shopping Market - E-Commerce
 
-Aplicação web de mercado e compras online, com carrinho de compras e login.
+# 🛒 shoppingMarketTic
 
-**🚀 Ver funcionando:** [Clique aqui para acessar a aplicação em produção]
+Uma aplicação web moderna para mercado e compras online.
 
-### O que o projeto faz
-- Listagem de produtos
-- Busca de produtos com filtro
-- Carrinho de compras (adicionar, remover, alterar quantidade)
-- Login e cadastro
-- API simulada com JSON Server
+[🚀 Clique aqui para acessar a aplicação em produção](https://shopping-market-tic-git-main-alison-costas-projects-402dec72.vercel.app/)
 
-> Obs: O back-end é simulado com JSON Server, para treinar o consumo de API no front-end.
+## 🖥️ Telas do Projeto
+<table align="center">
+  <tr>
+    <td align="center"><b>Tela Principal</b></td>
+    <td align="center"><b>Carrinho de Compras</b></td>
+    <td align="center"><b>Tela de Login</b></td>
+  </tr>
+  <tr>
+    <td><img src="assets/tela-principal.png" alt="Tela Principal" width="300"></td>
+    <td><img src="assets/tela-carrinho-compra.png" alt="Carrinho de Compras" width="300"></td>
+    <td><img src="assets/tela-login.png" alt="Tela de Login" width="300"></td>
+  </tr>
+</table>
 
-### Telas do Projeto
-[Coloca aqui 1 print grande da Tela Principal]
+Este é um projeto de e-commerce completo com controle de carrinho de compras e sistema de autenticação estruturado em TypeScript. A aplicação foi originalmente iniciada como um projeto de estudo e, posteriormente, evoluída de forma independente para aplicar padrões avançados de engenharia de software e arquitetura de sistemas.
 
-### Tecnologias que usei
-- React.js + Vite
-- TypeScript
-- Tailwind CSS
-- Axios para chamadas HTTP
-- TanStack Query para buscar e guardar os dados da API
-- JSON Server como API simulada
+> 🎓 **Contexto de Desenvolvimento:** Base construída durante a trilha de aprendizado em React.js ofertada pela **TIC emtrilhas**.
+> 🚀 **Evolução de Portfólio:** Por iniciativa própria e foco em evolução de carreira, realizei uma refatoração total da aplicação. Atualizei a stack para TypeScript estrito, reconstruí os contratos de integração com APIs, isolei fluxos de variáveis de ambiente e configurei uma arquitetura estável de deploy independente.
 
-### Como rodar na sua máquina
+---
 
-Esse projeto tem 2 partes: o front e a API simulada. Precisa rodar os 2.
+## 🛠️ Tecnologias e Frameworks Atualizados
 
-**1. Clonar:**
-git clone https://github.com/ALI84CC/shoppingMarketTic
+- **React.js & Vite:** Setup moderno focado em alta performance e Hot Module Replacement (HMR).
+- **TypeScript:** Implementação de tipagem estrita para segurança de dados entre componentes e requisições.
+- **Tailwind CSS:** Estilização componentizada e responsiva com foco em otimização para telas desktop (1440px).
+- **Axios:** Centralização de chamadas HTTP usando instâncias customizadas (`http-common.ts`).
+- **TanStack Query (React Query):** Gerenciamento de cache assíncrono para buscas textuais otimizadas com debounce.
+- **React Router Dom:** Gerenciamento de navegação e fluxos de autenticação.
+- **JSON Server Base:** Mock API REST simulando o armazenamento persistente em banco de dados independente.
+
+---
+
+## 🏗️ Soluções de Engenharia Implementadas
+
+- **Tratamento Dinâmico de Coleções:** Correção na camada de serviço para mapeamento e tratamento de respostas HTTP retornadas em formato de Array por APIs mockadas, adaptando-as para os estados locais do React.
+- **Isolamento de Ambientes (CI/CD):** Separação rígida de chaves através de `.env.local` (desenvolvimento) e `.env.production` (produção), mantendo dados sensíveis protegidos via `.gitignore`.
+- **Evolução de UX/UI:** Correção de concorrência na exibição do estado de login no cabeçalho (`Header.tsx`) e implementação de navegação de retorno fluida (`FiArrowLeft`) para evitar travamentos de formulários.
+
+---
+
+## 🚀 Como Executar o Projeto Localmente
+
+O repositório está estruturado como um Monorepo, contendo tanto o cliente (frontend) quanto a API mockada (backend).
+
+### 1. Clonar o Repositório
+```bash
+git clone https://github.com
 cd shoppingMarketTic
+```
 
-**2. Rodar a API simulada:**
+### 2. Configurar e Iniciar o Servidor (Backend)
+```bash
+cd json-server-base
 npm install
-npm run server
+npm run start
+```
+*O servidor mock iniciará localmente na porta `3001`.*
 
-**3. Em outro terminal, rodar o front:**
+### 3. Configurar e Iniciar a Aplicação (Frontend)
+Abra um novo terminal na raiz principal do projeto:
+```bash
+npm install
 npm run dev
+```
+---
 
-### O que eu aprendi nesse projeto
-- Comecei na trilha de React do TIC em Trilhas e depois continuei sozinho, refazendo o projeto em TypeScript
-- Aprendi a tipar os dados que vêm da API para evitar erro
-- Aprendi a usar TanStack Query para não ficar chamando a API toda hora
-- Aprendi a separar as chaves de desenvolvimento e produção com .env
+## 🌐 Deploys Ativos
+
+- **Front-end (Interface da Loja):** [Acesse a aplicação na Vercel](https://vercel.app)
+- **Back-end (Serviço de API):** [Acesse o banco de dados no Render](https://onrender.com)
