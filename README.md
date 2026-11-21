@@ -16,7 +16,9 @@ Aplicação web de mercado e compras online, com carrinho de compras e login.
 
 ### Telas do Projeto
 
-[Coloca aqui 1 print grande da Tela Principal]
+<di align="center">
+  <img src="assets/dashboard.png" alt="tela principal" width="250px" />
+</div>
 
 ### Tecnologias que usei
 
@@ -31,6 +33,7 @@ Aplicação web de mercado e compras online, com carrinho de compras e login.
 
 Esse projeto tem 2 partes: o front e a API simulada. Precisa rodar os 2.
 
+```bash
 **1. Clonar:**
 git clone https://github.com/ALI84CC/shoppingMarketTic
 cd shoppingMarketTic
@@ -41,6 +44,7 @@ npm run server
 
 **3. Em outro terminal, rodar o front:**
 npm run dev
+```
 
 ### O que eu aprendi nesse projeto
 
