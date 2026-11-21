@@ -16,8 +16,8 @@ Aplicação web de mercado e compras online, com carrinho de compras e login.
 
 ### Telas do Projeto
 
-<di align="center">
-  <img src="assets/dashboard.png" alt="tela principal" width="250px" />
+<div align="center">
+  <img src="assets/dashboard.png" alt="tela principal" width="600" />
 </div>
 
 ### Tecnologias que usei
