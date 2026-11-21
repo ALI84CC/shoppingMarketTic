@@ -11,6 +11,7 @@ import { useOnClickOutside } from '../hooks/useClickOutside';
 import { Link } from 'react-router-dom';
 import { useShoppingList } from '../contexts/ShoppingCart';
 import AuthService from '../services/auth.service';
+import SignUp from '../view/SignUp';
 
 const Header = () => {
   const { totalQtd } = useShoppingList();
@@ -148,6 +149,13 @@ const Header = () => {
                 Entrar
               </Link>
             )}
+
+            <Link
+              to="/register"
+              className="text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700"
+            >
+              Cadastrar
+            </Link>
 
             <Link
               to="/shopping-cart"
