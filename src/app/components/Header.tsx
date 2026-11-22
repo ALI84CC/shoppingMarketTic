@@ -11,7 +11,6 @@ import { useOnClickOutside } from '../hooks/useClickOutside';
 import { Link } from 'react-router-dom';
 import { useShoppingList } from '../contexts/ShoppingCart';
 import AuthService from '../services/auth.service';
-import SignUp from '../view/SignUp';
 
 const Header = () => {
   const { totalQtd } = useShoppingList();

@@ -1,15 +1,4 @@
 import http from '../../http-common';
-import Login from '../view/Login';
-
-interface Login {
-  email: string;
-  password: string;
-}
-
-export interface ReturnDataLogin {
-  result: { accessToken: string };
-  user: { email: string; username: string; id: number };
-}
 
 export interface SaveLoginUser {
   accessToken: string;
@@ -17,60 +6,63 @@ export interface SaveLoginUser {
 }
 
 const AuthService = {
-  // 🔐 CORRIGIDO: Alterado de '/login' para '/users/login'
-  async autenticate(formData: any): Promise<SaveLoginUser> {
+  async autenticate(formData: {
+    email: string;
+    password: string;
+  }): Promise<SaveLoginUser> {
     const response = await http.get(
       `/users?email=${formData.email}&password=${formData.password}`,
     );
 
-    // O json-server retorna uma lista ([]). Se encontrar alguém, o tamanho será maior que 0
     if (response.data && response.data.length > 0) {
-      // CORREÇÃO CRÍTICA: Pegamos o primeiro usuário dentro da lista retornada
       const dbUser = response.data[0];
-
-      const sessionData: SaveLoginUser = {
-        accessToken: 'mock-jwt-token-kenzie',
+      return {
+        accessToken: 'mock-jwt-token',
         user: {
           email: dbUser.email,
-          // Garante compatibilidade caso o campo no seu db.json se chame 'username' ou 'name'
           username: dbUser.username || dbUser.name,
           id: dbUser.id,
         },
       };
-
-      return sessionData;
     }
-
-    // Se a lista vier vazia ([]), força a queda no bloco catch do Login.tsx
     throw new Error('Usuário ou senha inválidos');
   },
 
-  // 📝 SEU CADASTRO QUE JÁ ESTÁ FUNCIONANDO PERFEITAMENTE:
-  async register(data: { email: string; password: string; username: string }) {
-    const response = await http.post<ReturnDataLogin>('/users', data);
-    return response.data;
+  // CORRIGIDO: Agora o register já devolve no formato da sessão
+  async register(data: {
+    email: string;
+    password: string;
+    username: string;
+  }): Promise<SaveLoginUser> {
+    const response = await http.post('/users', data);
+    const dbUser = response.data;
+
+    return {
+      accessToken: 'mock-jwt-token',
+      user: {
+        email: dbUser.email,
+        username: dbUser.username || dbUser.name,
+        id: dbUser.id,
+      },
+    };
   },
 
-  // Grava os dados da sessão
   setLoggedUser(data: SaveLoginUser) {
-    const parsedData = JSON.stringify(data);
-    localStorage.setItem('user', parsedData);
+    localStorage.setItem('user', JSON.stringify(data));
   },
 
-  // Recupera os dados
-  getLoggedUser(): null {
+  getLoggedUser(): SaveLoginUser | null {
     const data = localStorage.getItem('user');
     if (!data) return null;
     try {
-      return JSON.parse(data); // Retorna o objeto completo { accessToken, user }
-    } catch (error) {
-      console.error(error);
+      return JSON.parse(data);
+    } catch {
       return null;
     }
   },
 
   cleanLoggedUser() {
-    localStorage.clear();
+    localStorage.removeItem('user');
   },
 };
 

@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "backpack",
       "descricao": "Mochila resistente para uso diário e viagens.",
       "preco": 189.9,
@@ -10,7 +10,7 @@
       "imagem": "assets/produtos/backpack.png"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "ball",
       "descricao": "Bola esportiva multiuso oficial.",
       "preco": 79.9,
@@ -19,16 +19,16 @@
       "imagem": "assets/produtos/ball.png"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "bike",
       "descricao": "Bicicleta urbana com marchas e quadro de alumínio.",
-      "preco": 1250.0,
+      "preco": 1250,
       "quantidade": 5,
       "categoria": "Esportes",
       "imagem": "assets/produtos/bike.png"
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "camisa-havaiana",
       "descricao": "Camisa estampada casual de manga curta.",
       "preco": 89.9,
@@ -37,7 +37,7 @@
       "imagem": "assets/produtos/camisa-havaiana.png"
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "lipstick",
       "descricao": "Batom hidratante com acabamento matte.",
       "preco": 34.9,
@@ -46,7 +46,7 @@
       "imagem": "assets/produtos/lipstick.png"
     },
     {
-      "id": 6,
+      "id": "6",
       "nome": "liquidificador",
       "descricao": "Liquidificador potente com jarra de 2 litros.",
       "preco": 159.9,
@@ -55,16 +55,16 @@
       "imagem": "assets/produtos/liquidificador.png"
     },
     {
-      "id": 7,
+      "id": "7",
       "nome": "luvas-de-boxe",
       "descricao": "Par de luvas de boxe profissionais com ajuste de pulso.",
-      "preco": 120.0,
+      "preco": 120,
       "quantidade": 8,
       "categoria": "Esportes",
       "imagem": "assets/produtos/luvas-de-boxe.png"
     },
     {
-      "id": 8,
+      "id": "8",
       "nome": "oculos-de-sol",
       "descricao": "Óculos de sol moderno com proteção UV400.",
       "preco": 99.9,
@@ -73,16 +73,16 @@
       "imagem": "assets/produtos/oculos-de-sol.png"
     },
     {
-      "id": 9,
+      "id": "9",
       "nome": "roda-de-carro",
       "descricao": "Roda de liga leve de alta durabilidade.",
-      "preco": 450.0,
+      "preco": 450,
       "quantidade": 16,
       "categoria": "Automotivo",
       "imagem": "assets/produtos/roda-de-carro.png"
     },
     {
-      "id": 10,
+      "id": "10",
       "nome": "tenis",
       "descricao": "Tênis esportivo confortável para corrida e caminhada.",
       "preco": 249.9,
@@ -91,5 +91,13 @@
       "imagem": "assets/produtos/tenis.png"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "username": "alisoncc",
+      "email": "alison84@yahoo.com.br",
+      "password": "56789",
+      "id": "lOYwfUAGAmg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
