@@ -97,6 +97,12 @@
       "email": "alison84@yahoo.com.br",
       "password": "56789",
       "id": "lOYwfUAGAmg"
+    },
+    {
+      "username": "alison84",
+      "email": "alison85cc@gmail.com",
+      "password": "@Cha53",
+      "id": "woH7PizXEjw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
