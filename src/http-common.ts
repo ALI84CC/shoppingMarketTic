@@ -2,7 +2,7 @@ import axios, { type AxiosInstance } from 'axios';
 
 const httpClient: AxiosInstance = axios.create({
   // O Vite vai escolher sozinho: localhost no seu PC, Render na Vercel!
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-type': 'application/json',
   },

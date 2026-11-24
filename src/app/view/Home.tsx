@@ -34,7 +34,7 @@ const Home = () => {
     },
   ];
   const {
-    data: products,
+    data: products = [],
     isLoading,
     error,
   } = useQuery({
@@ -104,9 +104,10 @@ const Home = () => {
 
         {/* Grid Responsiva ocupando 100% da largura do Container */}
         <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {products?.map((product: ProductProps) => (
-            <Card key={product.id} item={product} />
-          ))}
+          {Array.isArray(products) &&
+            products.map((product: ProductProps) => (
+              <Card key={product.id} item={product} />
+            ))}
         </div>
       </Container>
     </main>
