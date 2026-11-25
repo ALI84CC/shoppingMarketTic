@@ -74,12 +74,12 @@ const Home = () => {
   );
 
   return (
-    <main className="mb-10 flex w-full flex-col items-center gap-6 px-4 pt-24">
+    <main className="mt-4 mb-10 flex w-full flex-col items-center gap-6 px-4 pt-24">
       <Container>
         {/* Área do Filtro */}
         <div className="relative flex w-full flex-col items-end pb-4">
           <button
-            className="text-md cursor-pointer rounded-md bg-blue-500 px-8 py-2.5 font-medium text-white shadow-sm transition-colors hover:bg-blue-600"
+            className="text-md cursor-pointer rounded-md bg-blue-500 px-8 py-4 font-medium text-white shadow-sm transition-colors hover:bg-blue-600"
             onClick={handleFilterButton}
           >
             Filtro

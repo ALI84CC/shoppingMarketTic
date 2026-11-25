@@ -20,9 +20,12 @@ export interface ShoppingCartListContextData {
   addProduct: (product: ProductProps) => void;
   onRemove: (id: number) => void;
   onDecrease: (id: number) => void;
+  cleanCart: () => void;
 }
 
-const ShoppingListContext = createContext<ShoppingCartListContextData | undefined>(undefined);
+const ShoppingListContext = createContext<
+  ShoppingCartListContextData | undefined
+>(undefined);
 
 export const ShoppingListProvider = ({
   children,
@@ -98,15 +101,20 @@ export const ShoppingListProvider = ({
             amount: Number((nextQuantity * item.product.preco).toFixed(2)),
           };
         }
+        // 4. LIMPAR CARRINHO - para o Finalizar Compra
+        const clearCart = () => {
+          setShoppingList([]);
+        };
+
         return item;
       });
     });
   };
 
-const totalSumAmount = shoppingList.reduce((acc, item) => {
-  const itemAmount = item.amount ?? 0;
-  return Number((acc + itemAmount).toFixed(2));
-}, 0);
+  const totalSumAmount = shoppingList.reduce((acc, item) => {
+    const itemAmount = item.amount ?? 0;
+    return Number((acc + itemAmount).toFixed(2));
+  }, 0);
 
   const totalQtd = shoppingList.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -119,6 +127,7 @@ const totalSumAmount = shoppingList.reduce((acc, item) => {
         addProduct,
         onRemove,
         onDecrease,
+        cleanCart() {},
       }}
     >
       {children}
@@ -132,9 +141,6 @@ export const useShoppingList = (): ShoppingCartListContextData => {
     throw new Error(
       'useShoppingList must be used within a ShoppingListProvider',
     );
-  }
-   if (!context) {
-    throw new Error("useShoppingList deve ser usado dentro de um ShoppingListProvider");
   }
   return context;
 };

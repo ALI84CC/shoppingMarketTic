@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../components/Container';
 
 const ShoppingCart = () => {
-  const { items, addProduct, onDecrease, onRemove } = useShoppingList();
+  const { items, addProduct, onDecrease, onRemove, totalSumAmount } =
+    useShoppingList();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,11 +19,11 @@ const ShoppingCart = () => {
 
   return (
     <>
-      <main className="w-full">
+      <main className="flex min-h-[calc(100vh-80px)] w-full items-center justify-center pt-20">
         <Container>
-          <div className="rounded-lg bg-white p-6 shadow-md">
+          <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
             {/* Container que centraliza o conteúdo e gerencia o scroll */}
-            <div className="mt-32 flex flex-1 justify-center overflow-auto px-4">
+            <div className="mt-30 flex flex-1 justify-center overflow-auto px-4">
               {/* Aumentado a largura máxima (max-w-3xl) e w-full para os cards ficarem largos e centralizados */}
               <div className="flex w-full max-w-3xl flex-col gap-6">
                 {items.map((item) => {
@@ -98,7 +99,14 @@ const ShoppingCart = () => {
             {/* Barra Inferior Fixa posicionando o Total estritamente no canto inferior esquerdo */}
             <div className="mt-4 flex items-center justify-between rounded-xl bg-white p-4 shadow">
               <span className="font-bold">
-                Total da compra: <span className="text-green-600">R$ {''}</span>
+                Total da compra:{' '}
+                <span
+                  className="text-green-600"
+                  aria-readonly
+                  aria-disabled={items.length === 0}
+                >
+                  R$ {totalSumAmount}
+                </span>
               </span>
               <button className="rounded-lg bg-green-500 px-6 py-2.5 font-medium text-white hover:bg-green-600">
                 Finalizar Compra

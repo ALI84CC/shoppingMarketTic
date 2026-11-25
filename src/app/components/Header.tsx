@@ -14,9 +14,7 @@ import AuthService from '../services/auth.service';
 
 const Header = () => {
   const { totalQtd } = useShoppingList();
-  // Estado local imediato para o valor do input (evita travamentos)
   const [inputValue, setInputValue] = useState('');
-  // Estado que realmente vai disparar a busca no TanStack Query
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [userLogado, setUserLogado] = useState<any>(null);
@@ -26,7 +24,7 @@ const Header = () => {
   const { data: productByName, isLoading } = useQuery<ProductProps[], Error>({
     queryKey: ['query-products-by-name', searchTerm],
     queryFn: () => ProductService.searchName(searchTerm),
-    enabled: !!searchTerm.trim(), // Só busca se houver texto válidofalse
+    enabled: !!searchTerm.trim(),
   });
 
   useEffect(() => {
@@ -35,19 +33,15 @@ const Header = () => {
     }
   }, [productByName]);
 
-  // Função com debounce que atualiza o termo da busca após 500ms
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearchTerm(value), 500),
     [],
   );
 
   useEffect(() => {
-    // Busca os dados do usuário que foram salvos no login/cadastro
     const session = AuthService.getLoggedUser() as any;
-
-    // CORREÇÃO: Verifica se a sessão existe e se a chave username está direta nela
     if (session && session.user && session.user.username) {
-      setUserLogado(session.user); // Salva o objeto inteiro direto no estado
+      setUserLogado(session.user);
     } else {
       setUserLogado(null);
     }
@@ -55,8 +49,8 @@ const Header = () => {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setInputValue(value); // Atualiza a tela instantaneamente
-    debouncedSearch(value); // Dispara a busca atrasada
+    setInputValue(value);
+    debouncedSearch(value);
   };
 
   useOnClickOutside(refDropDown, () => {
@@ -67,7 +61,6 @@ const Header = () => {
     <header className="fixed top-0 right-0 z-50 flex min-h-20 w-full items-center justify-center border-b border-gray-500 bg-white py-3 shadow-md md:py-4">
       <Container>
         <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-3 px-2 md:w-11/12 md:flex-nowrap md:gap-8 md:px-0">
-          {/* 1. Bloco da Logo (sem w-32 no mobile para não roubar espaço) */}
           <div className="shrink-0 md:w-32">
             <Link to="/">
               <img
@@ -78,7 +71,6 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* 2. Bloco da Barra de Busca (linha inteira abaixo no mobile; no meio no desktop) */}
           <div className="relative order-3 flex w-full items-center md:order-2 md:max-w-2xl md:flex-1">
             <Input value={inputValue} onChange={handleInput} />
             {isOpen &&
@@ -119,7 +111,7 @@ const Header = () => {
             )}
           </div>
 
-          {/* 3. Bloco de Ações da Direita (fica na 1ª linha no mobile e na ponta direita no desktop) */}
+          {/* Bloco da direita - CORRIGIDO */}
           <div className="order-2 flex shrink-0 items-center gap-3 md:order-3 md:gap-6">
             {userLogado ? (
               <div className="flex items-center gap-2 md:gap-3">
@@ -141,27 +133,27 @@ const Header = () => {
                 </button>
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700"
-              >
-                Entrar
-              </Link>
+              <>
+                <Link
+                  to="/login"
+                  className="text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700"
+                >
+                  Entrar
+                </Link>
+                <Link
+                  to="/register"
+                  className="text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700"
+                >
+                  Cadastrar
+                </Link>
+              </>
             )}
-
-            <Link
-              to="/register"
-              className="text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700"
-            >
-              Cadastrar
-            </Link>
 
             <Link
               to="/shopping-cart"
               className="relative flex items-center justify-center p-1"
             >
               <CiShoppingCart className="h-8 w-8 text-gray-700 transition-colors hover:text-blue-500 md:h-9 md:w-9" />
-
               {totalQtd > 0 && (
                 <div className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white shadow-sm">
                   <span>{totalQtd}</span>
