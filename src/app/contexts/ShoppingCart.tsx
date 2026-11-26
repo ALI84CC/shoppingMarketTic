@@ -5,22 +5,25 @@ interface ShoppingListProviderProps {
   children: ReactNode;
 }
 
-// 1. Interface alinhada com o banco de dados
 export interface ListItem {
   id: number;
-  product: ProductProps; // Guarda o produto completo vindo do db.json
-  quantity: number; // Quantidade no carrinho
-  amount: number; // Valor total deste item (quantidade * preco)
+  product: ProductProps;
+  quantity: number;
+  amount: number;
 }
 
 export interface ShoppingCartListContextData {
   items: ListItem[];
   totalSumAmount: number;
   totalQtd: number;
+  isOrderCompleted: boolean;
+  lastOrderTotal: number;
   addProduct: (product: ProductProps) => void;
   onRemove: (id: number) => void;
   onDecrease: (id: number) => void;
   cleanCart: () => void;
+  finishOrder: () => void;
+  resetOrder: () => void;
 }
 
 const ShoppingListContext = createContext<
@@ -31,24 +34,26 @@ export const ShoppingListProvider = ({
   children,
 }: ShoppingListProviderProps) => {
   const [shoppingList, setShoppingList] = useState<ListItem[]>([]);
+  const [isOrderCompleted, setIsOrderCompleted] = useState(false);
+  const [lastOrderTotal, setLastOrderTotal] = useState(0);
 
-  // 1. ADICIONAR PRODUTO (Sem loops complexos ou variáveis quebradas)
+  // 1. ADICIONAR PRODUTO
   const addProduct = (product: ProductProps) => {
+    setIsOrderCompleted(false); // Garante que o estado de compra concluída resete se voltar a comprar
+
     setShoppingList((prevList) => {
-      // Procura se o produto já existe no carrinho
       const existingItem = prevList.find(
         (item) => Number(item.id) === Number(product.id),
       );
 
       if (existingItem) {
-        // Se existe, mapeia a lista aumentando a quantidade e recalculando o valor total
         return prevList.map((item) => {
           if (Number(item.id) === Number(product.id)) {
             const nextQuantity = item.quantity + 1;
             return {
               ...item,
               quantity: nextQuantity,
-              amount: Number((nextQuantity * product.preco).toFixed(2)), // Usa o preço direto do produto enviado
+              amount: Number((nextQuantity * product.preco).toFixed(2)),
             };
           }
           return item;
@@ -57,7 +62,6 @@ export const ShoppingListProvider = ({
 
       const valorPreco = product?.preco ?? 0;
 
-      // Se o produto é novo, adiciona ele no array com a estrutura correta
       return [
         ...prevList,
         {
@@ -86,12 +90,10 @@ export const ShoppingListProvider = ({
 
       if (!existingItem) return prevList;
 
-      // Se só tem 1 unidade, remove do carrinho
       if (existingItem.quantity <= 1) {
         return prevList.filter((item) => Number(item.id) !== Number(id));
       }
 
-      // Se tem mais de 1, diminui a quantidade
       return prevList.map((item) => {
         if (Number(item.id) === Number(id)) {
           const nextQuantity = item.quantity - 1;
@@ -101,11 +103,6 @@ export const ShoppingListProvider = ({
             amount: Number((nextQuantity * item.product.preco).toFixed(2)),
           };
         }
-        // 4. LIMPAR CARRINHO - para o Finalizar Compra
-        const clearCart = () => {
-          setShoppingList([]);
-        };
-
         return item;
       });
     });
@@ -118,16 +115,39 @@ export const ShoppingListProvider = ({
 
   const totalQtd = shoppingList.reduce((acc, item) => acc + item.quantity, 0);
 
+  // 4. LIMPAR CARRINHO
+  const cleanCart = () => {
+    setShoppingList([]);
+  };
+
+  // 5. FINALIZAR COMPRA
+  const finishOrder = () => {
+    if (totalQtd === 0) return;
+    setLastOrderTotal(totalSumAmount); // Salva o valor antes de limpar o carrinho
+    setIsOrderCompleted(true);
+    cleanCart();
+  };
+
+  // 6. RESETAR ESTADO DO CARD DE SUCESSO
+  const resetOrder = () => {
+    setIsOrderCompleted(false);
+    setLastOrderTotal(0);
+  };
+
   return (
     <ShoppingListContext.Provider
       value={{
         items: shoppingList,
         totalSumAmount,
         totalQtd,
+        isOrderCompleted,
+        lastOrderTotal,
         addProduct,
         onRemove,
         onDecrease,
-        cleanCart() {},
+        cleanCart,
+        finishOrder,
+        resetOrder,
       }}
     >
       {children}
