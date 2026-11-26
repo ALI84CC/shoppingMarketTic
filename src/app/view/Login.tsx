@@ -17,14 +17,13 @@ const Login = () => {
   useEffect(() => {
     const session = AuthService.getLoggedUser();
     if (session) {
-      navigate("/");
+      navigate('/');
     }
   }, [navigate]);
 
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errorMessage) setErrorMessage(null); // Limpa o erro ao digitar
   };
 
@@ -35,37 +34,35 @@ const Login = () => {
 
     // Validação básica de campos em branco no front-end
     if (!formData.email.trim() || !formData.password.trim()) {
-      setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
+      setErrorMessage('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
     try {
       // Dispara a requisição para o seu http-common (localhost:3001/login)
-      const res = await AuthService.autenticate(formData) as any;
+      const res = (await AuthService.autenticate(formData)) as any;
 
       if (res) {
         AuthService.setLoggedUser(res); // Salva a sessão no localStorage
-        navigate("/"); // Envia o usuário de volta para a Loja
-        window.location.reload(); // Atualiza o cabeçalho para exibir o nome logado
+        navigate('/'); // Envia o usuário de volta para a Loja
+        window.location.href = '/'; // Atualiza o cabeçalho para exibir o nome logado
       }
-
     } catch (error) {
       console.error(error);
-      setErrorMessage("E-mail ou senha incorretos. Tente novamente.");
+      setErrorMessage('E-mail ou senha incorretos. Tente novamente.');
     }
   };
 
   return (
-    <div className="w-full pt-24 min-h-screen bg-gray-200 flex justify-center items-center">
+    <div className="flex min-h-screen w-full items-center justify-center bg-gray-200 pt-24">
       <Container>
-        <div className="mx-auto max-w-sm w-full bg-white p-8 rounded-2xl shadow-md flex flex-col gap-6 text-center">
-
+        <div className="mx-auto flex w-full max-w-sm flex-col gap-6 rounded-2xl bg-white p-8 text-center shadow-md">
           <div className="flex items-center justify-start">
             <Link
               to="/"
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-500 transition-colors group"
+              className="group flex items-center gap-1.5 text-sm font-medium text-gray-500 transition-colors hover:text-blue-500"
             >
-              <FiArrowLeft className="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
+              <FiArrowLeft className="h-4 w-4 transform transition-transform group-hover:-translate-x-1" />
               <span>Voltar para a Loja</span>
             </Link>
           </div>
@@ -73,7 +70,7 @@ const Login = () => {
           <h1 className="text-2xl font-bold text-gray-800">Login</h1>
 
           {errorMessage && (
-            <div className="rounded-md bg-red-50 p-3 text-xs font-medium text-red-600 border border-red-200">
+            <div className="rounded-md border border-red-200 bg-red-50 p-3 text-xs font-medium text-red-600">
               {errorMessage}
             </div>
           )}
@@ -99,14 +96,20 @@ const Login = () => {
               onChange={handleChange}
             />
 
-            <Button type="submit" className="mt-2 w-full bg-blue-500 text-white font-medium py-2.5 rounded-lg hover:bg-blue-600 transition-colors">
+            <Button
+              type="submit"
+              className="mt-2 w-full rounded-lg bg-blue-500 py-2.5 font-medium text-white transition-colors hover:bg-blue-600"
+            >
               Entrar
             </Button>
           </form>
 
-          <div className="text-xs text-gray-500 mt-2">
+          <div className="mt-2 text-xs text-gray-500">
             Não tem uma conta?{' '}
-            <Link to="/register" className="text-blue-500 font-semibold hover:underline">
+            <Link
+              to="/register"
+              className="font-semibold text-blue-500 hover:underline"
+            >
               Cadastre-se aqui
             </Link>
           </div>

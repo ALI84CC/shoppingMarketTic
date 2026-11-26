@@ -104,6 +104,5 @@
       "password": "@Cha53",
       "id": "woH7PizXEjw"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

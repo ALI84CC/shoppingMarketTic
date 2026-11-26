@@ -53,14 +53,15 @@ const AuthService = {
 
   getLoggedUser(): SaveLoginUser | null {
     const data = localStorage.getItem('user');
-    if (!data) return null;
+    if (!data || data === 'undefined' || data === 'null') return null;
     try {
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      // CORRIGIDO: Verifica parsed.user.email em vez de parsed.email
+      return parsed && parsed.user && parsed.user.email ? parsed : null;
     } catch {
       return null;
     }
   },
-
   cleanLoggedUser() {
     localStorage.removeItem('user');
   },
