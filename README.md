@@ -45,10 +45,13 @@ npm run server
 **3. Em outro terminal, rodar o front:**
 npm run dev
 ```
+
 ### Login para testar
 
-Email: teste@teste.com.br
+```bash
+Email:  teste@teste.com.br
 Senha: 123456
+```
 
 ### O que eu aprendi nesse projeto
 
