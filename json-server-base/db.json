@@ -109,6 +109,12 @@
       "email": "alison84cc@gmail.com",
       "password": "@Alison84",
       "id": 3
+    },
+    {
+      "username": "usuarioTeste",
+      "email": " teste@teste.com.br",
+      "password": "123456",
+      "id": "duJKQzGNyF8"
     }
   ]
 }
